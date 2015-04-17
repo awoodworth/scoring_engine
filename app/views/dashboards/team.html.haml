@@ -19,9 +19,8 @@
 .col-xs-6
   %h4 Services
   - @services.each do |service|
-    %div.center.service{class: (service.status ? 'up' : 'down')}
-      = service.name1.split('-')[2]
-      = service.name2.split('-')[1] if service.name1.include?("ecom")
+    %div.center.service{class: (ServiceCheck.where(service_object_id: service.object_id).last.up? ? 'up' : 'down')}
+      = service.name2
     %br
 
 - @refresh = true
