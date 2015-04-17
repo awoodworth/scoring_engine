@@ -1,0 +1,15 @@
+= header "List of Users", icon: :user
+
+%table.table.table-striped
+  %thead
+    %th Username
+    %th
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td= user.username
+        %td.right
+          - unless user.admin?
+            = link_to "Make Admin?", admin_user_path(user)
+            |
+          = object_actions user, skip_view: true

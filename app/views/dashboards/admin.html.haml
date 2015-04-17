@@ -1,0 +1,19 @@
+%h2 Admin Dashboard
+%hr
+
+- @services.each do |team|
+  .col-xs-3
+    - team_name = team.first.name1.split('-')
+    %h3= team_name[0] + "-" + team_name[1]
+    - team.each do |service|
+      - @success = (ServiceCheck.where(service_object_id: service.object_id).up.count.to_f/ServiceCheck.where(service_object_id: service.object_id).count.to_f)*100
+      - @failure = (ServiceCheck.where(service_object_id: service.object_id).down.count.to_f/ServiceCheck.where(service_object_id: service.object_id).count.to_f)*100
+      %div.center.service{class: (ServiceCheck.where(service_object_id: service.object_id).last.up? ? 'up' : 'down')}
+        = service.name2
+      .progress
+        .progress-bar.progress-bar-success{style: "width: #{@success}%"}
+          = "#{@success.round}% (#{ServiceCheck.where(service_object_id: service.object_id).up.count})"
+        .progress-bar.progress-bar-danger{style: "width: #{@failure}%"}
+          = "#{@failure.round}% (#{ServiceCheck.where(service_object_id: service.object_id).down.count})"
+
+- @refresh = true

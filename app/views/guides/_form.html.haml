@@ -1,0 +1,11 @@
+= errors_for @guide
+= form_for @guide, html: { multipart: true } do |f|
+  .col-xs-6
+    .form-group
+      = f.file_field :file
+      %br
+      - unless @guide.new_record?
+        %em note that a resubmission will overwrite the previous submission
+
+    = f.submit "Submit", class: "btn btn-success"
+    = link_to "Cancel", guides_path, class: "btn btn-danger"

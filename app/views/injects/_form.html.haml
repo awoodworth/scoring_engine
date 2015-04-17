@@ -1,0 +1,34 @@
+= errors_for @inject
+= form_for @inject do |f|
+  .row
+    .col-xs-6
+      .form-group
+        = f.text_field :title, placeholder: 'Title', class: "form-control"
+      .form-group
+        = f.label :description
+        = f.text_area :description, rows: 10, class: "form-control"
+    .col-xs-6
+      .form-group
+        .input-group.date#datetimepicker1
+          = f.datetime_field :available_at, placeholder: 'Available At', class: "form-control"
+          %span.input-group-addon
+            %span.glyphicon.glyphicon-calendar
+      .form-group
+        .input-group.date#datetimepicker2
+          = f.datetime_field :due_at, placeholder: 'Due At', class: "form-control"
+          %span.input-group-addon
+            %span.glyphicon.glyphicon-calendar
+  .row
+    .col-xs-6
+      = f.submit "Submit", class: "btn btn-success"
+      = link_to "Cancel", injects_path, class: "btn btn-danger"
+
+- content_for :javascript do
+  $(function(){
+  $('#datetimepicker1').datetimepicker({
+  format: 'YYYY-MM-DD hh:mm:ss a Z'
+  });
+  $('#datetimepicker2').datetimepicker({
+  format: 'YYYY-MM-DD hh:mm:ss a Z'
+  });
+  });

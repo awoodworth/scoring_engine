@@ -1,0 +1,27 @@
+%h2 Dashboard
+%hr
+.col-xs-6
+  %h4.warning.center Incomplete Injects
+  %ul
+    - @incomplete_injects.each do |inject|
+      %li
+        = link_to inject.title, inject_path(inject)
+        %br
+        %span{class: ('red' if inject.overdue?)}= "Due: #{inject.due_at.strftime('%m/%d/%Y %l:%M %P')}"
+  %hr
+  %h4.secondary.center Complete Injects
+  %ul
+    - @complete_injects.each do |inject|
+      %li
+        = link_to inject.title, inject_path(inject)
+        %br
+        = "Submitted: #{current_user.inject_responses.where(inject_id: inject.id).first.updated_at.strftime('%m/%d/%Y %l:%M %P')}"
+.col-xs-6
+  %h4 Services
+  - @services.each do |service|
+    %div.center.service{class: (service.status ? 'up' : 'down')}
+      = service.name1.split('-')[2]
+      = service.name2.split('-')[1] if service.name1.include?("ecom")
+    %br
+
+- @refresh = true

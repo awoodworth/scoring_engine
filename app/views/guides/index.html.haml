@@ -1,0 +1,12 @@
+= header "Listing Guides", icon: :question_sign
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th Guide
+      %th
+  %tbody
+    - @guides.each do |guide|
+      %tr
+        %td= link_to guide.file_file_name, guide.file.url
+        %td.right= object_actions guide

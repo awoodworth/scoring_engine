@@ -1,0 +1,56 @@
+= header "List Inject Responses", icon: :folder_open, skip_button: true
+
+- if current_user.admin?
+  .panel-group#accordion{role: "tablist", "aria-multiselectable"=>"true"}
+    - @inject_responses.group_by{ |ir| ir.inject }.each do |inject, inject_response|
+      .panel.panel-default
+        .panel-heading{role: "tab", id: "inject_#{inject.id}_heading"}
+          %h4.panel-title
+            %a.collapsed{"data-toggle"=>"collapse", "data-parent"=>"#accordion", href: "#inject_#{inject.id}", "aria-expanded"=>"false", "aria-controls"=>"inject_#{inject.id}"}
+              = inject.title
+        %div.panel-collapse.collapse{id: "inject_#{inject.id}", role: "tabpanel", "aria-labelledby"=>"inject_#{inject.id}_heading"}
+          .panel-body
+            %table.table.table-striped
+              %thead
+                %th Team
+                %th Submitted
+                %th.center On Time
+                %th
+              %tbody
+                - inject_response.each do |response|
+                  %tr
+                    %td= link_to response.user.username, team_inject_responses_path(response.user_id)
+                    %td= response.updated_at.strftime('%m/%d/%Y %l:%M %P')
+                    %td.center
+                      - if response.on_time?
+                        = text_icon :ok, color: :green
+                      - else
+                        = text_icon :remove, color: :red
+                    %td.right
+                      = link_to "Download", response.submission.url
+                      |
+                      = object_actions response, skip_edit: true, skip_view: true
+- else
+  %table.table.table-striped
+    %thead
+      %tr
+        %th Inject Title
+        %th Team
+        %th Submitted
+        %th.center On Time
+        %th
+    %tbody
+      - @inject_responses.each do |inject_response|
+        %tr
+          %td= inject_response.inject.title
+          %td= link_to inject_response.user.username, team_inject_responses_path(inject_response.user_id)
+          %td= inject_response.updated_at.strftime('%m/%d/%Y %l:%M %P')
+          %td.center
+            - if inject_response.on_time?
+              = text_icon :ok, color: :green
+            - else
+              = text_icon :remove, color: :red
+          %td.right
+            = link_to "Download", inject_response.submission.url
+            |
+            = object_actions inject_response, skip_edit: true, skip_view: true

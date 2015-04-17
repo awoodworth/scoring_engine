@@ -1,0 +1,23 @@
+= show_header "Show Inject", @inject
+.row
+  .col-xs-6
+    %p
+      %b Title:
+      = @inject.title
+    %p
+      %b Due At:
+      = @inject.due_at.strftime("%m/%d/%Y %H:%M")
+    %p
+      %b Description:
+      %br
+      :plain
+        #{@inject.description.gsub(/\n/, '<br/>').html_safe}
+    %br
+    = link_to 'List of Injects', injects_path, class: 'btn btn-info'
+    - unless @inject_response
+      = link_to 'Submit Inject Response', new_inject_inject_response_path(@inject), class: 'btn btn-success'
+
+  .col-xs-6
+    - if @inject_response
+      = show_header "Inject Response", @inject_response, element: :h4, parent_object: @inject
+      = link_to @inject_response.submission_file_name, @inject_response.submission.url

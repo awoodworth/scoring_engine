@@ -1,0 +1,102 @@
+@font-face {
+  font-family: 'batman';
+  src:url('fonts/batman.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'batman' !important;
+  padding-top: 10px;
+}
+
+#header {
+  background-color: #4a4d50;
+  border-radius: 0px 0px 5px 5px;
+  color: white;
+  height: 80px;
+  line-height: 80px;
+  p {
+    display: inline;
+  }
+  a {
+    text-decoration: none;
+    color: white;
+  }
+}
+
+#content {
+  margin-top: 20px;
+}
+
+#navigation {
+  p {
+    text-align: center;
+  }
+  ul {
+    padding: 0px;
+  	margin: 0px;
+    li {
+      list-style-type: none;
+      height: 30px;
+      line-height: 30px;
+      border-bottom: 1px solid #dddddd;
+      border-collapse: collapse;
+      &:first-child {
+        border-top: 1px solid #dddddd;
+      }
+      a {
+        // background-color: #666666;
+        width: 100%;
+        display: block;
+        padding-left: 10px;
+        text-decoration: none;
+        &:hover {
+          background-color: #fafafa;
+        }
+      }
+    }
+  }
+}
+
+.right {
+  text-align: right;
+}
+.center {
+  text-align: center;
+}
+.warning {
+  background-color: #ea9d3e;
+}
+.secondary, .success {
+  background-color: #4dae4a;
+}
+.danger {
+  background-color: #ce3c3e;
+}
+
+.service {
+  padding: 10px;
+  border-bottom: white 1px solid;
+  border-radius: 4px;
+  &.up {
+    background-color: #5cb85c;
+    color: white;
+  }
+  &.down {
+    background-color: #d9534f;
+    color: white;
+  }
+}
+
+.red {
+  color: #ca3838;
+}
+.green {
+  color: green;
+}
+
+
+.modal {
+  color: #4a4d50
+}

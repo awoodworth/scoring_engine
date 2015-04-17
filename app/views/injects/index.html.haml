@@ -1,0 +1,18 @@
+= header "List of Injects", icon: :list
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th Title
+      %th Description
+      %th Available At
+      %th Due At
+      %th
+  %tbody
+    - @injects.each do |inject|
+      %tr
+        %td= inject.title
+        %td= truncate inject.description, length: 50
+        %td= inject.available_at.strftime("%m/%d/%Y %H:%M")
+        %td= inject.due_at.strftime("%m/%d/%Y %H:%M")
+        %td.right= object_actions inject

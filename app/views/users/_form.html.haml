@@ -1,0 +1,11 @@
+= errors_for @user
+= form_for @user do |f|
+  .col-xs-6
+    .form-group
+      = f.text_field :username, placeholder: 'Username', class: "form-control"
+    .form-group
+      = f.password_field :password, placeholder: 'Password', class: "form-control"
+      = f.password_field :password_confirmation, placeholder: 'Confirm Password', class: "form-control"
+
+    = f.submit "Submit", class: "btn btn-success"
+    = link_to "Cancel", users_path, class: "btn btn-danger"
