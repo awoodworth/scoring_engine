@@ -13,7 +13,7 @@ class DashboardsController < ApplicationController
 
   def admin
     @services = []
-    User.all.not_admins.each do |user|
+    User.all.team.each do |user|
       @services << Service.all.for_team(user.username)
     end
   end

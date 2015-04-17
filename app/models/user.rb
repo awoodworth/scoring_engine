@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   validates :username, uniqueness: true
 
   scope :not_admins, ->() {where(admin: false)}
+  scope :team, ->() {where("username LIKE 'team-%'")}
 
   default_scope { order('username ASC') }
 
