@@ -9,10 +9,11 @@
       = link_to "Scoring Engine", root_path, class: "navbar-brand"
     #navbar.navbar-collapse.collapse
       %ul.nav.navbar-nav
-        %li{class: (controller_name =~ /dashboards/ ? 'active' : '')}= link_to "Home", root_url
-        %li{class: (controller_name =~ /injects/ ? 'active' : '')}= link_to "Injects", injects_path
-        %li{class: (controller_name =~ /inject_responses/ ? 'active' : '')}= link_to "Inject Responses", inject_responses_path
-        %li{class: (controller_name =~ /guides/ ? 'active' : '')}= link_to "Guides", guides_path
+        %li{class: (controller_name =~ /dashboards|welcome/ ? 'active' : '')}= link_to "Home", root_url
+        - if current_user
+          %li{class: (controller_name =~ /injects/ ? 'active' : '')}= link_to "Injects", injects_path
+          %li{class: (controller_name =~ /inject_responses/ ? 'active' : '')}= link_to "Inject Responses", inject_responses_path
+          %li{class: (controller_name =~ /guides/ ? 'active' : '')}= link_to "Guides", guides_path
       %ul.nav.navbar-nav.navbar-right
         - if current_user
           %li.dropdown
