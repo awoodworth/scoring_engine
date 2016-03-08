@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby "2.3.0"
 
 gem 'rails', '4.2.5.2'
-gem 'sqlite3'
+gem 'mysql2'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'coffee-rails'
@@ -31,7 +31,6 @@ gem "paperclip", "~> 4.2"
 # gem 'capistrano-rails', group: :development
 
 group :production do
-  gem 'mysql2', '~> 0.3'
   gem 'therubyracer'
 end
 
