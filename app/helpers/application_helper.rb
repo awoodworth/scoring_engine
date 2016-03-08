@@ -118,15 +118,18 @@ module ApplicationHelper
       flash.each do |type, message|
         message_class = case type
         when 'notice'
-          'secondary'
+          'success'
         when 'alert'
           'warning'
         when 'error'
-          'warning'
+          'danger'
         else
           'info'
         end
-        haml_tag :li, message, class: "#{message_class} alert"
+        haml_tag :div, class: "alert alert-#{message_class} fade in" do
+          haml_tag :a, '&times;'.html_safe, class: 'close', "data-dismiss" => "alert", "aria-label" => "close"
+          haml_concat message
+        end
       end
     end
   end
