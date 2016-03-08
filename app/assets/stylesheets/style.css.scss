@@ -74,3 +74,22 @@ body {
 .modal {
   color: #4a4d50
 }
+
+// vertical align login modal
+#login-modal {
+  .vertical-alignment-helper {
+    display: table;
+    height: 100%;
+    width: 100%;
+  }
+  .vertical-align-center {
+    display: table-cell;
+    vertical-align: middle;
+  }
+  .modal-content {
+    width:inherit;
+    height:inherit;
+    margin: 0 auto;
+  }
+}
+

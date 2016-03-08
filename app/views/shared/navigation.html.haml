@@ -27,13 +27,13 @@
           %li= link_to "Login", "#", {"data-toggle"=>"modal", "data-target"=>"#login-modal"}
 - unless current_user
   .modal.fade#login-modal{"tabindex"=>"-1", "role"=>"dialog", "aria-labelledby"=>"myModalLabel", "aria-hidden"=>"true"}
-    .modal-dialog.modal-sm
-      .modal-content
-        .modal-header
-          %button.close{type: "button", "data-dismiss"=>"modal", "aria-label"=>"Close"}
-            %span{"aria-hidden"=>"true"}
-              &times;
-          %h4.modal-title Login
-        .modal-body
-          = render file: 'devise/sessions/new'
-          
+    .vertical-alignment-helper
+      .modal-dialog.modal-sm.vertical-align-center
+        .modal-content
+          .modal-header
+            %button.close{type: "button", "data-dismiss"=>"modal", "aria-label"=>"Close"}
+              %span{"aria-hidden"=>"true"}
+                &times;
+            %h4.modal-title Login
+          .modal-body
+            = render file: 'devise/sessions/new'
