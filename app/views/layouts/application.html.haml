@@ -3,8 +3,11 @@
   %head
     %title Scoring Engine
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = stylesheet_link_tag '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'
     = stylesheet_link_tag '//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/d004434a5ff76e7b97c8b07c01f34ca69e635d97/build/css/bootstrap-datetimepicker.css'
+    = stylesheet_link_tag '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = javascript_include_tag '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'
     = javascript_include_tag '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js'
     = javascript_include_tag '//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/d004434a5ff76e7b97c8b07c01f34ca69e635d97/src/js/bootstrap-datetimepicker.js'
 
@@ -12,37 +15,10 @@
     = csrf_meta_tags
 
   %body
+    = render file: 'shared/navigation'
     #main-container.container
-      .row#header
-        .col-xs-9
-          %a{href: root_path, "data-no-turbolink" => true}
-            %h1 Scoring Engine
-        - if current_user
-          .col-xs-3.right
-            %p= current_user.username
-            &nbsp;
-            %a{href: logout_path}
-              %span.glyphicon.glyphicon-log-out
-        - else
-          .col-xs-3.right
-            %a.btn.btn-success{"data-toggle"=>"modal", "data-target"=>"#login-modal"}
-              %p Login
-              %span.glyphicon.glyphicon-log-in
-          .modal.fade#login-modal{"tabindex"=>"-1", "role"=>"dialog", "aria-labelledby"=>"myModalLabel", "aria-hidden"=>"true"}
-            .modal-dialog.modal-sm
-              .modal-content
-                .modal-header
-                  %button.close{type: "button", "data-dismiss"=>"modal", "aria-label"=>"Close"}
-                    %span{"aria-hidden"=>"true"}
-                      &times;
-                  %h4.modal-title Login
-                .modal-body
-                  = render file: 'devise/sessions/new'
-
       .row#content
-        .col-xs-2
-          = render 'shared/navigation'
-        .col-xs-10
+        .col-sm-12
           = display_flash
           = yield
 

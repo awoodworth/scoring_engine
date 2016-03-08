@@ -2,7 +2,7 @@ module ApplicationHelper
 
   def text_icon(icon, options={})
     capture_haml do
-      haml_tag :span, class: "glyphicon glyphicon-#{icon.to_s.gsub('_','-')} #{options[:color]}"
+      haml_tag :span, class: "fa fa-#{icon.to_s.gsub('_','-')} #{options[:color]}"
     end
   end
 
@@ -14,7 +14,6 @@ module ApplicationHelper
         haml_tag :div, class: 'col-xs-10' do
           haml_tag options[:element] do
             haml_concat text_icon options[:icon] if options[:icon]
-            haml_concat "&nbsp;"
             haml_concat text
           end
         end

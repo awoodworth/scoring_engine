@@ -5,6 +5,10 @@
   font-style: normal;
 }
 
+body {
+  margin-top: 70px !important;
+}
+
 // h1, h2, h3, h4, h5, h6 {
 //   font-family: 'batman' !important;
 //   padding-top: 10px;
@@ -27,36 +31,6 @@
 
 #content {
   margin-top: 20px;
-}
-
-#navigation {
-  p {
-    text-align: center;
-  }
-  ul {
-    padding: 0px;
-  	margin: 0px;
-    li {
-      list-style-type: none;
-      height: 30px;
-      line-height: 30px;
-      border-bottom: 1px solid #dddddd;
-      border-collapse: collapse;
-      &:first-child {
-        border-top: 1px solid #dddddd;
-      }
-      a {
-        // background-color: #666666;
-        width: 100%;
-        display: block;
-        padding-left: 10px;
-        text-decoration: none;
-        &:hover {
-          background-color: #fafafa;
-        }
-      }
-    }
-  }
 }
 
 .right {
