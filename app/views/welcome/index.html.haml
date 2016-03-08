@@ -1,21 +1,5 @@
 %h2 Welcome to the Scoring Engine!
 %hr
-
-.modal.fade#modal{"tabindex"=>"-1", "role"=>"dialog", "aria-labelledby"=>"myModalLabel", "aria-hidden"=>"true"}
-  .modal-dialog.modal-md
-    .modal-content
-      .modal-header
-        %button.close{type: "button", "data-dismiss"=>"modal", "aria-label"=>"Close"}
-          %span{"aria-hidden"=>"true"}
-            &times;
-        %h4 Welcome!
-      .modal-body
-        .center
-          = image_tag "http://cdn.meme.am/instances/57338354.jpg", alt: 'Photo Find Credit: Kyle Walter'
-
 %p Please log in to continue
-
-- content_for :javascript do
-  $(document).ready(function() {
-  $("#modal").modal();
-  });
+.center
+  = image_tag "cyber_security", alt: 'http://cdn.meme.am/instances/57338354.jpg (Photo Find Credit: Kyle Walter)', width: 400
