@@ -1,0 +1,17 @@
+.row
+  .col-xs-9
+    %h4= pluralize Setting.all.count, "Setting"
+  .col-xs-3.right
+    = link_to 'New Setting', new_setting_path, class: 'btn btn-success'
+%table.table.table-striped
+  %thead
+    %tr
+      %th Name
+      %th Value
+      %th
+  %tbody
+    - Setting.all.each do |setting|
+      %tr
+        %td= setting.name
+        %td= setting.value
+        %td.right= object_actions setting, skip_view: true

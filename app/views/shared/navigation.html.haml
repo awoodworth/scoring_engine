@@ -16,12 +16,14 @@
           %li{class: (controller_name =~ /guides/ ? 'active' : '')}= link_to "Guides", guides_path
       %ul.nav.navbar-nav.navbar-right
         - if current_user
+          %li= link_to text_icon(:cog), "#", {"data-toggle"=>"modal", "data-target"=>"#settings-modal"} if can?(:manage, Setting)
           %li.dropdown
             %a.dropdown-toggle{"data-toggle" => "dropdown", "role" => "button", "aria-haspopup" => "true", "aria-expanded" => "false"}
               = current_user.username
               %span.caret
             %ul.dropdown-menu
               %li= link_to "Account", '#'
+              %li= link_to "Users", users_path if can?(:manage, User)
               %li= link_to "Logout", logout_path
         - else
           %li= link_to "Login", "#", {"data-toggle"=>"modal", "data-target"=>"#login-modal"}
@@ -37,3 +39,21 @@
             %h4.modal-title Login
           .modal-body
             = render file: 'devise/sessions/new'
+- if current_user && can?(:manage, Setting)
+  .modal.fade#settings-modal{"tabindex"=>"-1", "role"=>"dialog", "aria-labelledby"=>"myModalLabel", "aria-hidden"=>"true"}
+    .vertical-alignment-helper
+      .modal-dialog.modal-md.vertical-align-center
+        .modal-content
+          .modal-header
+            %button.close{type: "button", "data-dismiss"=>"modal", "aria-label"=>"Close"}
+              %span{"aria-hidden"=>"true"}
+                &times;
+            %h4.modal-title Settings
+          .modal-body
+            = render file: 'settings/index'
+            
+:coffeescript
+  if window.location.hash.substring(1) == "login"
+    $('#login-modal').modal('show')
+  if window.location.hash.substring(1) == "settings"
+    $('#settings-modal').modal('show')
