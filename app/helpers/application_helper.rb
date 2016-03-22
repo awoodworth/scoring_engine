@@ -97,8 +97,9 @@ module ApplicationHelper
         haml_tag :div, class: 'row' do
           haml_tag :div, class: 'twelve columns' do
             haml_tag :div, class: 'errors' do
-              haml_tag :div, class: 'warning alert' do
+              haml_tag :div, class: 'alert alert-danger' do
                 object_name = t("models.#{object.class.name.underscore.downcase}", default: object.class.name.titleize)
+                haml_tag :a, '&times;'.html_safe, class: 'close', "data-dismiss" => "alert", "aria-label" => "close"
                 haml_tag :p, "#{pluralize(object.errors.count, 'error')} prohibited this #{object_name} from being saved"
                 haml_tag :ul do
                   object.errors.full_messages.each do |error|

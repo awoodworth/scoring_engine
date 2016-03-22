@@ -76,7 +76,7 @@ body {
 }
 
 // vertical align login modal
-#login-modal {
+.modal {
   .vertical-alignment-helper {
     display: table;
     height: 100%;
@@ -93,3 +93,8 @@ body {
   }
 }
 
+.field_with_errors {
+  .form-control {
+    border-color: #d43f3a !important;
+  }
+}
