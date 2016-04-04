@@ -20,7 +20,7 @@
               %tbody
                 - inject_response.each do |response|
                   %tr
-                    %td= link_to response.user.username, summary_inject_responses_path(anchor: response.user.username)
+                    %td= link_to response.username, summary_inject_responses_path(anchor: response.username)
                     %td= response.updated_at.strftime('%m/%d/%Y %l:%M %P')
                     %td.center
                       - if response.on_time?
@@ -47,7 +47,7 @@
                   &times;
               %h4.modal-title
                 Add Score
-                %small= "#{response.inject} (#{response.user.username})"
+                %small= "#{response.inject} (#{response.username})"
             .modal-body
               = form_for response do |f|
                 .row

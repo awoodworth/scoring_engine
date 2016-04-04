@@ -12,6 +12,8 @@ class InjectResponse < ActiveRecord::Base
 
   validates_numericality_of :score, allow_nil: true
 
+  delegate :username, to: :user
+
   def on_time?
     self.created_at <= self.inject.due_at
   end
