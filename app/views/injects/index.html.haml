@@ -7,12 +7,24 @@
       %th Description
       %th Available At
       %th Due At
+      - if current_user.admin?
+        %th.center Max Score
+      - else
+        %th Submission
       %th
   %tbody
     - @injects.each do |inject|
       %tr
         %td= inject.title
-        %td= truncate inject.description, length: 50
+        %td= truncate inject.description, length: 20
         %td= inject.available_at.strftime("%m/%d/%Y %H:%M")
         %td= inject.due_at.strftime("%m/%d/%Y %H:%M")
+        - if current_user.admin?
+          %td.center= inject.max_score
+        - else
+          - response = inject.inject_responses.where(user: current_user).first
+          - if response
+            %td= link_to inject.inject_responses.where(user: current_user).first.submission_file_name, inject.inject_responses.where(user: current_user).first.submission.url
+          - else
+            %td= text_icon :close, color: :red
         %td.right= object_actions inject

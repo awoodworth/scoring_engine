@@ -1,11 +1,16 @@
 = errors_for @inject_response
 = form_for [@inject, @inject_response], html: { multipart: true } do |f|
-  .col-xs-6
-    .form-group
-      = f.file_field :submission
-      %br
-      - unless @inject_response.new_record?
-        %em note that a resubmission will overwrite the previous submission
+  .row
+    .col-xs-6
+      .form-group
+        = f.file_field :submission
+        %br
+        - unless @inject_response.new_record?
+          %em note that a resubmission will overwrite the previous submission
+    - if current_user.admin?
+      .col-xs-6
+        .form-group
+          = f.text_field :score, placeholder: 'Score', class: 'form-control'
 
-    = f.submit "Submit", class: "btn btn-success"
-    = link_to "Cancel", @inject.present? ? @inject : inject_responses_path, class: "btn btn-danger"
+  = f.submit "Submit", class: "btn btn-success"
+  = link_to "Cancel", @inject.present? ? @inject : inject_responses_path, class: "btn btn-danger"

@@ -7,6 +7,10 @@
     %p
       %b Due At:
       = @inject.due_at.strftime("%m/%d/%Y %H:%M")
+    - if current_user.admin?
+      %p
+        %b Max Score:
+        = @inject.max_score
     %p
       %b Description:
       %br
@@ -15,7 +19,7 @@
     %br
     = link_to 'List of Injects', injects_path, class: 'btn btn-info'
     - unless @inject_response
-      = link_to 'Submit Inject Response', new_inject_inject_response_path(@inject), class: 'btn btn-success'
+      = link_to 'Submit Inject Response', new_inject_inject_response_path(@inject), class: 'btn btn-success' if current_user.is_team?
 
   .col-xs-6
     - if @inject_response

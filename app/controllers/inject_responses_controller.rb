@@ -29,7 +29,7 @@ class InjectResponsesController < ApplicationController
     @inject_response.user_id = current_user.id
     respond_to do |format|
       if @inject_response.save
-        format.html { redirect_to @inject, notice: 'Inject response was successfully submitted.' }
+        format.html { redirect_to @inject_response.inject, notice: 'Inject response was successfully submitted.' }
       else
         format.html { render :new }
       end
@@ -39,7 +39,7 @@ class InjectResponsesController < ApplicationController
   def update
     respond_to do |format|
       if @inject_response.update(inject_response_params)
-        format.html { redirect_to @inject, notice: 'Inject response was successfully updated.' }
+        format.html { redirect_to (params[:inject_response][:summary] ? summary_inject_responses_path : inject_responses_path), notice: 'Inject response was successfully updated.' }
       else
         format.html { render :edit }
       end
@@ -53,14 +53,20 @@ class InjectResponsesController < ApplicationController
     end
   end
 
-  def team
+  def summary
+    redirect_to root_path and return false unless current_user.admin?
     @injects = Inject.all
-    @user = current_user.admin? ? User.find(params[:user_id]) : current_user
+    @inject_responses = InjectResponse.all
+    @users = User.team
   end
 
   private
   def inject_response_params
-    params.require(:inject_response).permit(:submission, :inject_id)
+    if current_user.admin?
+      params.require(:inject_response).permit(:submission, :inject_id, :score, :summary)
+    else
+      params.require(:inject_response).permit(:submission, :inject_id)
+    end
   end
   private
   def inject

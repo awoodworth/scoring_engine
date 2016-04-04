@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160308201723) do
+ActiveRecord::Schema.define(version: 20160328230347) do
 
   create_table "guides", force: :cascade do |t|
     t.string   "file_file_name",    limit: 255
@@ -23,14 +23,15 @@ ActiveRecord::Schema.define(version: 20160308201723) do
   end
 
   create_table "inject_responses", force: :cascade do |t|
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
     t.string   "submission_file_name",    limit: 255
     t.string   "submission_content_type", limit: 255
     t.integer  "submission_file_size",    limit: 4
     t.datetime "submission_updated_at"
     t.integer  "user_id",                 limit: 4
     t.integer  "inject_id",               limit: 4
+    t.decimal  "score",                               precision: 4, scale: 1
   end
 
   add_index "inject_responses", ["inject_id"], name: "index_inject_responses_on_inject_id", using: :btree
@@ -41,8 +42,9 @@ ActiveRecord::Schema.define(version: 20160308201723) do
     t.text     "description",  limit: 65535
     t.datetime "available_at"
     t.datetime "due_at"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.integer  "max_score",    limit: 4,     default: 0
   end
 
   create_table "nagios_acknowledgements", primary_key: "acknowledgement_id", force: :cascade do |t|

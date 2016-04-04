@@ -13,6 +13,10 @@ class User < ActiveRecord::Base
 
   default_scope { order('username ASC') }
 
+  def is_team?
+    !self.admin?
+  end
+
   # to override the devise email
   def email_required?
     false

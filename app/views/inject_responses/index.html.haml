@@ -15,27 +15,55 @@
                 %th Team
                 %th Submitted
                 %th.center On Time
+                %th.center= "Score (#{inject.max_score})"
                 %th
               %tbody
                 - inject_response.each do |response|
                   %tr
-                    %td= link_to response.user.username, team_inject_responses_path(response.user_id)
+                    %td= link_to response.user.username, summary_inject_responses_path(anchor: response.user.username)
                     %td= response.updated_at.strftime('%m/%d/%Y %l:%M %P')
                     %td.center
                       - if response.on_time?
-                        = text_icon :ok, color: :green
+                        = text_icon :check, color: :green
                       - else
                         = text_icon :remove, color: :red
+                    %td.center
+                      - if response.score
+                        = link_to response.score, '#', {"data-toggle"=>"modal", "data-target"=>"#score-modal-#{response.id}"}
+                      - else
+                        = link_to 'Add Score', '#', {"data-toggle"=>"modal", "data-target"=>"#score-modal-#{response.id}"}
                     %td.right
                       = link_to "Download", response.submission.url
                       |
                       = object_actions response, skip_edit: true, skip_view: true
+  - @inject_responses.each do |response|
+    %div{ class: 'modal fade', id: "score-modal-#{response.id}", "tabindex"=>"-1", "role"=>"dialog", "aria-labelledby"=>"", "aria-hidden"=>"true" }
+      .vertical-alignment-helper
+        .modal-dialog.modal-md.vertical-align-center
+          .modal-content
+            .modal-header
+              %button.close{type: "button", "data-dismiss"=>"modal", "aria-label"=>"Close"}
+                %span{"aria-hidden"=>"true"}
+                  &times;
+              %h4.modal-title
+                Add Score
+                %small= "#{response.inject} (#{response.user.username})"
+            .modal-body
+              = form_for response do |f|
+                .row
+                  .col-xs-6
+                    .form-group
+                      .input-group
+                        = f.text_field :score, placeholder: 'Score', class: 'form-control', "aria-describedby" => ""
+                        %span.input-group-addon= "/ #{response.inject.max_score}"
+                    .form-group
+                      = f.submit "Submit", class: "btn btn-success"
+  = link_to 'Summary', summary_inject_responses_path, class: 'btn btn-info'
 - else
   %table.table.table-striped
     %thead
       %tr
         %th Inject Title
-        %th Team
         %th Submitted
         %th.center On Time
         %th
@@ -43,14 +71,13 @@
       - @inject_responses.each do |inject_response|
         %tr
           %td= inject_response.inject.title
-          %td= link_to inject_response.user.username, team_inject_responses_path(inject_response.user_id)
           %td= inject_response.updated_at.strftime('%m/%d/%Y %l:%M %P')
           %td.center
             - if inject_response.on_time?
-              = text_icon :ok, color: :green
+              = text_icon :check, color: :green
             - else
               = text_icon :remove, color: :red
           %td.right
             = link_to "Download", inject_response.submission.url
             |
-            = object_actions inject_response, skip_edit: true, skip_view: true
+            = object_actions inject_response, skip_view: true

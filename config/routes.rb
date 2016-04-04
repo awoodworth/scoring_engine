@@ -16,8 +16,10 @@ Rails.application.routes.draw do
   resources :injects do
     resources :inject_responses
   end
-  resources :inject_responses
-  get "inject_responses/team/:user_id" => "inject_responses#team", as: :team_inject_responses
+  resources :inject_responses do
+    get :summary, on: :collection
+  end
+
   resources :guides
 
   root 'welcome#index'
