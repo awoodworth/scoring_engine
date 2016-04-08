@@ -49,10 +49,7 @@ GEM
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
     byebug (8.2.2)
-    cancan (1.6.10)
-    cancan_strong_parameters (0.4)
-      activesupport
-      cancan
+    cancancan (1.13.1)
     chosen-rails (1.4.3)
       coffee-rails (>= 3.2)
       compass-rails (>= 2.0.4)
@@ -230,8 +227,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   byebug
-  cancan
-  cancan_strong_parameters (~> 0.4)
+  cancancan (~> 1.10)
   chosen-rails
   coffee-rails
   devise
@@ -242,6 +238,7 @@ DEPENDENCIES
   mysql2
   paperclip (~> 4.2)
   rails (= 4.2.5.2)
+  responders
   sass-rails
   sdoc (~> 0.4.0)
   spring
