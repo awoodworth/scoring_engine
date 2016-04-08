@@ -1,0 +1,20 @@
+= show_header "Show Group", @group
+
+.row
+  .col-xs-6
+    %p
+      %b Name:
+      = @group.name
+  .col-xs-6
+    %table.table.table-striped
+      %thead
+        %tr
+          %th User
+          %th
+      %tbody
+        - @group.users.each do |user|
+          %tr
+            %td= user.username
+            %td.right= object_actions user, skip_view: true, skip_destroy: true
+
+= link_to 'All Users', users_path, class: 'btn btn-primary'

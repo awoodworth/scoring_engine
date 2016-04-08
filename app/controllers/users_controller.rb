@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   respond_to :html
 
   def index
+    @groups = Group.all
   end
 
   def new
@@ -26,6 +27,8 @@ class UsersController < ApplicationController
   end
 
   def update
+    params[:user].delete :password if params[:user][:password].blank?
+    params[:user].delete :password_confirmation if params[:user][:password_confirmation].blank?
     respond_with(@user) do |format|
       if @user.update(user_params)
         format.html { redirect_to users_path, notice: 'User was successfully updated.' }
@@ -43,23 +46,8 @@ class UsersController < ApplicationController
   end
 
 
-  def admin
-    if current_user.admin?
-      @user = User.find(params[:id])
-      @user.admin = true
-      respond_with(@user) do |format|
-        if @user.save
-          format.html { redirect_to users_path, notice: "User was successfully updated." }
-        else
-          format.html { redirect_to users_path, alert: "User was not updated." }
-        end
-      end
-    end
-  end
-
-
   private
   def user_params
-    params.require(:user).permit(:username, :password, :password_confirmation)
+    params.require(:user).permit(:username, :password, :password_confirmation, group_ids: [])
   end
 end

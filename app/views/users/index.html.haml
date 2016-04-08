@@ -1,15 +1,29 @@
-= header "List of Users", icon: :user
+= header "List of Users", icon: :user, button: link_to('Groups', '#', {"data-toggle"=>"modal", "data-target"=>"#groups-modal", class: 'btn btn-info'})
 
 %table.table.table-striped
   %thead
     %th Username
+    %th Groups
     %th
   %tbody
     - @users.each do |user|
       %tr
         %td= user.username
-        %td.right
-          - unless user.admin?
-            = link_to "Make Admin?", admin_user_path(user)
-            |
-          = object_actions user, skip_view: true
+        %td= user.groups.join(', ')
+        %td.right= object_actions user, skip_view: true
+
+.modal.fade#groups-modal{"tabindex"=>"-1", "role"=>"dialog", "aria-labelledby"=>"", "aria-hidden"=>"true"}
+  .vertical-alignment-helper
+    .modal-dialog.modal-md.vertical-align-center
+      .modal-content
+        .modal-header
+          %button.close{type: "button", "data-dismiss"=>"modal", "aria-label"=>"Close"}
+            %span{"aria-hidden"=>"true"}
+              &times;
+          %h4.modal-title Groups
+        .modal-body
+          = render file: 'groups/index'
+
+:coffeescript
+  if window.location.hash.substring(1) == "groups"
+    $('#groups-modal').modal('show')

@@ -7,6 +7,7 @@ gem 'mysql2'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'coffee-rails'
+gem 'chosen-rails'
 # gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 gem 'turbolinks'

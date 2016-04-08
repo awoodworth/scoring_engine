@@ -4,13 +4,12 @@ Rails.application.routes.draw do
   get "dashboards" => "dashboards#index"
 
   devise_for :users, controllers: { registrations: 'users' }, skip: [:password], path_names: { sign_in: 'login', sign_out: 'logout' }
-  resources :users, except: :show do
-    get :admin, on: :member
-  end
+  resources :users, except: :show
   devise_scope :user do
     get "login", to: "devise/sessions#new"
     get "logout", to: "devise/sessions#destroy"
   end
+  resources :groups
   resources :settings
 
   resources :injects do

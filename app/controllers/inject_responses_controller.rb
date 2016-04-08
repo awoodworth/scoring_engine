@@ -15,7 +15,7 @@ class InjectResponsesController < ApplicationController
     if @inject
       redirect_to @inject if current_user.inject_responses.where(inject_id: @inject.id).first
     else
-      redirect_to root_path
+      redirect_to dashboards_path
     end
   end
 
@@ -54,22 +54,23 @@ class InjectResponsesController < ApplicationController
   end
 
   def summary
-    redirect_to root_path and return false unless current_user.admin?
+    redirect_to dashboards_path and return false unless current_user.in_group?(:white_team)
     @injects = Inject.all
     @inject_responses = InjectResponse.all
-    @users = User.team
+    @users = User.in_group(:blue_team)
   end
 
+
   private
+  def inject
+    @inject = Inject.find(params[:inject_id]) if params[:inject_id]
+  end
+  
   def inject_response_params
-    if current_user.admin?
+    if current_user.in_group?(:white_team)
       params.require(:inject_response).permit(:submission, :inject_id, :score, :summary)
     else
       params.require(:inject_response).permit(:submission, :inject_id)
     end
-  end
-  private
-  def inject
-    @inject = Inject.find(params[:inject_id]) if params[:inject_id]
   end
 end

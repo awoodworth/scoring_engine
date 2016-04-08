@@ -11,18 +11,19 @@ module ApplicationHelper
     options[:skip_button] ||= false
     capture_haml do
       haml_tag :div, class: 'row' do
-        haml_tag :div, class: 'col-xs-10' do
+        haml_tag :div, class: 'col-xs-9' do
           haml_tag options[:element] do
             haml_concat text_icon options[:icon] if options[:icon]
             haml_concat text
           end
         end
-        haml_tag :div, class: 'col-xs-2 right' do
+        haml_tag :div, class: 'col-xs-3 right' do
           unless options[:skip_button]
             if can?(:create, Object.const_get(controller_name.classify.singularize))
               haml_concat link_to("New #{controller_name.classify.singularize}", new_polymorphic_url(controller_name.singularize.to_sym), class: 'btn btn-success')
             end
           end
+          haml_concat options[:button] if options[:button]
         end
       end
       haml_tag :hr
