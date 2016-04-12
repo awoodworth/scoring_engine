@@ -10,7 +10,9 @@ Rails.application.routes.draw do
     get "logout", to: "devise/sessions#destroy"
   end
   resources :groups
-  resources :settings
+  resources :settings, skip: :show
+
+  resources :events
 
   resources :injects do
     resources :inject_responses

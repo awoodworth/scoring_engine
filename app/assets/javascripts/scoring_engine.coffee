@@ -11,6 +11,9 @@ scoring_magic = ->
     no_results_text: 'No results matched'
     width: '300px'
 
+  $('.datetimepicker').datetimepicker
+    format: 'YYYY-MM-DD hh:mm:ss a Z'
+
 $ ->
   scoring_magic();
 

@@ -6,7 +6,7 @@ module ApplicationHelper
     end
   end
 
-  def header(text, options={})
+  def header(text, klass, options={})
     options[:element] ||= :h2
     options[:skip_button] ||= false
     capture_haml do
@@ -19,8 +19,8 @@ module ApplicationHelper
         end
         haml_tag :div, class: 'col-xs-3 right' do
           unless options[:skip_button]
-            if can?(:create, Object.const_get(controller_name.classify.singularize))
-              haml_concat link_to("New #{controller_name.classify.singularize}", new_polymorphic_url(controller_name.singularize.to_sym), class: 'btn btn-success')
+            if can?(:create, klass)
+              haml_concat link_to("New #{klass.name.singularize}", new_polymorphic_url(klass.name.underscore.downcase.to_sym), class: 'btn btn-success')
             end
           end
           haml_concat options[:button] if options[:button]

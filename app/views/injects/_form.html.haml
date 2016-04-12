@@ -11,13 +11,13 @@
       .row
         .col-xs-6
           .form-group
-            .input-group.date#datetimepicker1
+            .input-group.datetimepicker
               = f.datetime_field :available_at, placeholder: 'Available At', class: "form-control"
               %span.input-group-addon
                 %span.glyphicon.glyphicon-calendar
         .col-xs-6
           .form-group
-            .input-group.date#datetimepicker2
+            .input-group.datetimepicker
               = f.datetime_field :due_at, placeholder: 'Due At', class: "form-control"
               %span.input-group-addon
                 %span.glyphicon.glyphicon-calendar
@@ -31,13 +31,3 @@
     .col-xs-6
       = f.submit "Submit", class: "btn btn-success"
       = link_to "Cancel", injects_path, class: "btn btn-danger"
-
-- content_for :javascript do
-  $(function(){
-  $('#datetimepicker1').datetimepicker({
-  format: 'YYYY-MM-DD hh:mm:ss a Z'
-  });
-  $('#datetimepicker2').datetimepicker({
-  format: 'YYYY-MM-DD hh:mm:ss a Z'
-  });
-  });

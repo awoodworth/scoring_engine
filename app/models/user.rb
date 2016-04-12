@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-  has_many :user_groups
+  has_many :user_groups, dependent: :destroy
   has_many :groups, ->{ uniq }, through: :user_groups
   has_many :inject_responses, dependent: :destroy
 

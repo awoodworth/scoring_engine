@@ -13,9 +13,9 @@
         - if current_user
           %li{class: (controller_name =~ /injects/ ? 'active' : '')}= link_to "Injects", injects_path
           %li{class: (controller_name =~ /inject_responses/ ? 'active' : '')}= link_to "Inject Responses", inject_responses_path
-          %li{class: (controller_name =~ /guides/ ? 'active' : '')}= link_to "Guides", guides_path
       %ul.nav.navbar-nav.navbar-right
         - if current_user
+          %li{class: (controller_name =~ /guides/ ? 'active' : '')}= link_to "Guides", guides_path
           %li= link_to text_icon(:cog), "#", {"data-toggle"=>"modal", "data-target"=>"#settings-modal"} if can?(:manage, Setting)
           %li.dropdown
             %a.dropdown-toggle{"data-toggle" => "dropdown", "role" => "button", "aria-haspopup" => "true", "aria-expanded" => "false"}
@@ -23,8 +23,13 @@
               %span.caret
             %ul.dropdown-menu
               %li= link_to "Account", '#'
-              %li= link_to "Users", users_path if can?(:manage, User)
               %li= link_to "Logout", logout_path
+              - if current_user.in_group?(:admin)
+                %li.divider{role: 'separator'}
+                %li.dropdown-header Administration
+                %li{class: (controller_name =~ /users/ ? 'active' : '')}= link_to 'Users', users_path
+                %li{class: (controller_name =~ /groups/ ? 'active' : '')}= link_to 'Groups', groups_path
+                %li{class: (controller_name =~ /events/ ? 'active' : '')}= link_to 'Events', events_path
         - else
           %li= link_to "Login", "#", {"data-toggle"=>"modal", "data-target"=>"#login-modal"}
 - unless current_user
