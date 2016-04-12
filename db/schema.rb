@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160411170957) do
+ActiveRecord::Schema.define(version: 20160412045300) do
 
   create_table "events", force: :cascade do |t|
     t.string   "name",           limit: 255
@@ -1074,6 +1074,14 @@ ActiveRecord::Schema.define(version: 20160411170957) do
   end
 
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "uuids", force: :cascade do |t|
+    t.string  "uuid",          limit: 255
+    t.integer "uuidable_id",   limit: 4
+    t.string  "uuidable_type", limit: 40
+  end
+
+  add_index "uuids", ["uuidable_id", "uuidable_type"], name: "index_uuids_on_uuidable_id_and_uuidable_type", using: :btree
 
   add_foreign_key "user_groups", "groups"
   add_foreign_key "user_groups", "users"

@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/awoodworth/uuid_it.git
+  revision: 967cdec09955a87465e6ef11f82a44121be074c1
+  branch: rails4
+  specs:
+    uuid_it (0.1.8)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -246,6 +253,7 @@ DEPENDENCIES
   turbolinks
   uglifier
   unicorn
+  uuid_it!
 
 BUNDLED WITH
    1.11.2

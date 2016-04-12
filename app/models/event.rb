@@ -1,4 +1,6 @@
 class Event < ActiveRecord::Base
+  uuid_it
+
   validates :name, :available_at, :unavailable_at, presence: true
   validate :sane_dates
   
