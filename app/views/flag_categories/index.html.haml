@@ -1,0 +1,12 @@
+= header "Flag Categories", FlagCategory, icon: :flag, skip_button: true, button: link_to('New Flag Category', new_event_flag_category_path(@event), class: 'btn btn-success')
+
+%table.table.table-stripped
+  %thead
+    %tr
+      %th Name
+      %th
+  %tbody
+    - @event.flag_categories.each do |flag_category|
+      %tr
+        %td= flag_category.name
+        %td.right= object_actions [@event, flag_category]

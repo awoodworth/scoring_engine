@@ -1,10 +1,17 @@
 class Event < ActiveRecord::Base
   uuid_it
 
+  has_many :injects
+  has_many :flag_categories
+
   validates :name, :available_at, :unavailable_at, presence: true
   validate :sane_dates
   
   scope :available, -> { where("available_at < ?", Time.now).where("unavailable_at > ?", Time.now) }
+
+  def to_s
+    name
+  end
 
   def schedule
     "#{self.available_at.strftime("%m/%d/%Y %H:%M")} - #{self.unavailable_at.strftime("%m/%d/%Y %H:%M")}"

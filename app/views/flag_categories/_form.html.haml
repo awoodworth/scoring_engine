@@ -1,0 +1,14 @@
+= errors_for @flag_category
+= form_for [@event, @flag_category] do |f|
+  .row
+    .col-xs-6
+      .form-group
+        = f.collection_select :event_id, Event.all, :id, :name, {}, {class: 'chosen-select'}
+      .form-group
+        = f.text_field :name, placeholder: 'Name', class: 'form-control'
+    .col-xs-6
+      -# TODO: fancy js for flags
+  .row
+    .col-xs-6
+      = f.submit 'Submit', class: 'btn btn-success'
+      = link_to 'Cancel', @event, class: 'btn btn-danger'

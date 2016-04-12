@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160412045300) do
+ActiveRecord::Schema.define(version: 20160412050340) do
 
   create_table "events", force: :cascade do |t|
     t.string   "name",           limit: 255
@@ -20,6 +20,15 @@ ActiveRecord::Schema.define(version: 20160412045300) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end
+
+  create_table "flag_categories", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.integer  "event_id",   limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "flag_categories", ["event_id"], name: "index_flag_categories_on_event_id", using: :btree
 
   create_table "groups", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -1083,6 +1092,7 @@ ActiveRecord::Schema.define(version: 20160412045300) do
 
   add_index "uuids", ["uuidable_id", "uuidable_type"], name: "index_uuids_on_uuidable_id_and_uuidable_type", using: :btree
 
+  add_foreign_key "flag_categories", "events"
   add_foreign_key "user_groups", "groups"
   add_foreign_key "user_groups", "users"
 end

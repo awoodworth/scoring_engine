@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   resources :groups
   resources :settings, skip: :show
 
-  resources :events
+  resources :events do
+    resources :flag_categories
+  end
 
   resources :injects do
     resources :inject_responses

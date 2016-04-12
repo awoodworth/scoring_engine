@@ -23,7 +23,7 @@ class Ability
     end
 
     if user.in_group?(:admin)
-      can :manage, [User, Group, Setting, Event]
+      can :manage, [User, Group, Setting, Event, FlagCategory]
       cannot :destroy, Event do |event|
         event.available? || event.past?
       end

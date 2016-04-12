@@ -2,6 +2,10 @@ class EventsController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource find_by: :uuid
 
+  def show
+    @flag_categories = @event.flag_categories
+  end
+
   def create
     @event.save
     respond_with @event, location: -> { events_path }

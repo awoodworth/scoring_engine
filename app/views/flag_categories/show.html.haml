@@ -1,0 +1,9 @@
+= show_header 'Show Flag Category', @flag_category, parent_object: @event
+.row
+  .col-xs-6
+    %p
+      %b Event:
+      = @flag_category.event
+    %p
+      %b Name:
+      = @flag_category.name
