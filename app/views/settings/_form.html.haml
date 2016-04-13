@@ -1,12 +1,12 @@
 = errors_for @setting
 = form_for @setting do |f|
   .row
-    .col-xs-6
+    .col-sm-6
       .form-group
         = f.text_field :name, placeholder: 'Name', class: 'form-control'
       .form-group
         = f.text_field :value, placeholder: 'Value', class: 'form-control'
   .row
-    .col-xs-6
+    .col-sm-6
       = f.submit 'Save', class: 'btn btn-success'
       = link_to 'Cancel', root_url(anchor: 'settings'), class: 'btn btn-danger'

@@ -1,8 +1,11 @@
 = errors_for @group
 = form_for @group do |f|
-  .col-xs-6
-    .form-group
-      = f.text_field :name, placeholder: 'Name', class: 'form-control'
+  .row
+    .col-sm-6
+      .form-group
+        = f.text_field :name, placeholder: 'Name', class: 'form-control'
 
-    = f.submit "Submit", class: 'btn btn-success'
-    = link_to "Cancel", users_path(anchor: 'groups'), class: 'btn btn-danger'
+  .row
+    .col-sm-6
+      = f.submit "Submit", class: 'btn btn-success'
+      = link_to "Cancel", users_path(anchor: 'groups'), class: 'btn btn-danger'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160412050340) do
+ActiveRecord::Schema.define(version: 20160413025303) do
 
   create_table "events", force: :cascade do |t|
     t.string   "name",           limit: 255
@@ -70,7 +70,10 @@ ActiveRecord::Schema.define(version: 20160412050340) do
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.integer  "max_score",    limit: 4,     default: 0
+    t.integer  "event_id",     limit: 4
   end
+
+  add_index "injects", ["event_id"], name: "index_injects_on_event_id", using: :btree
 
   create_table "nagios_acknowledgements", primary_key: "acknowledgement_id", force: :cascade do |t|
     t.integer  "instance_id",          limit: 2,   default: 0,  null: false
@@ -1093,6 +1096,7 @@ ActiveRecord::Schema.define(version: 20160412050340) do
   add_index "uuids", ["uuidable_id", "uuidable_type"], name: "index_uuids_on_uuidable_id_and_uuidable_type", using: :btree
 
   add_foreign_key "flag_categories", "events"
+  add_foreign_key "injects", "events"
   add_foreign_key "user_groups", "groups"
   add_foreign_key "user_groups", "users"
 end

@@ -9,7 +9,7 @@ scoring_magic = ->
   $('.chosen-select').chosen
     allow_single_deselect: true
     no_results_text: 'No results matched'
-    width: '300px'
+    width: '100%'
 
   $('.datetimepicker').datetimepicker
     format: 'YYYY-MM-DD hh:mm:ss a Z'

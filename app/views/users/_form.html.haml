@@ -1,15 +1,17 @@
 = errors_for @user
 = form_for @user do |f|
   .row
-    .col-xs-6
+    .col-sm-6
       .form-group
         = f.text_field :username, placeholder: 'Username', class: "form-control"
       .form-group
         = f.password_field :password, placeholder: 'Password', class: "form-control"
         = f.password_field :password_confirmation, placeholder: 'Confirm Password', class: "form-control"
-    .col-xs-6
+    .col-sm-6
       .form-group
         = f.collection_select :group_ids, Group.all, :id, :name, {}, {multiple: true, class: 'chosen-select'}
 
-  = f.submit "Submit", class: "btn btn-success"
-  = link_to "Cancel", users_path, class: "btn btn-danger"
+  .row
+    .col-sm-6
+      = f.submit "Submit", class: "btn btn-success"
+      = link_to "Cancel", users_path, class: "btn btn-danger"

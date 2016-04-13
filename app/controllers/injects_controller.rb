@@ -1,6 +1,6 @@
 class InjectsController < ApplicationController
   before_filter :authenticate_user!
-  load_and_authorize_resource :inject, parent: false, instance_name: 'inject'
+  load_and_authorize_resource
 
   def index
     @injects = current_user.in_group?(:white_team) ? Inject.all : Inject.available
@@ -30,6 +30,6 @@ class InjectsController < ApplicationController
 
   private
   def inject_params
-    params.require(:inject).permit(:title, :description, :available_at, :due_at, :max_score)
+    params.require(:inject).permit(:title, :description, :available_at, :due_at, :max_score, :event_id)
   end
 end
