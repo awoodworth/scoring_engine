@@ -10,6 +10,7 @@ gem 'sass-rails'
 gem 'coffee-rails'
 gem 'chosen-rails'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'autoprefixer-rails'
 
 gem 'turbolinks'
@@ -21,6 +22,8 @@ gem 'responders'
 
 gem 'uuid_it', github: 'awoodworth/uuid_it', branch: 'rails4'
 gem "paperclip", "~> 4.2"
+gem 'acts_as_tree'
+gem 'acts_as_list'
 
 gem 'unicorn'
 

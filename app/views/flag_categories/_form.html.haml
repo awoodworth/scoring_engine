@@ -1,5 +1,9 @@
 = errors_for @flag_category
 = form_for [@event, @flag_category] do |f|
+  - content_for :javascript do
+    = raw "var text='#{generate_template(f, :flags, {partial: "text"})}'"
+    = raw "var multiple_choice='#{generate_template(f, :flags, {partial: "multiple_choice"})}'"
+    = raw "var true_false='#{generate_template(f, :flags, {partial: "true_false"})}'"
   .row
     .col-sm-6
       .form-group
@@ -8,8 +12,49 @@
       .form-group
         = f.text_field :name, placeholder: 'Name', class: 'form-control'
     .col-sm-6
-      -# TODO: fancy js for flags
+      #flags
+        = f.fields_for :flags do |flag|
+          = render partial: flag.object.kind, locals: { f: flag }
+  .form-actions.center{"data-no-turbolink" => "data-no-turbolink"}
+    %h4 Flags
+    %h4= link_to text_icon(:font, label: 'Text<br/>Box'.html_safe), '#text', rel: 'flags', class: 'btn btn-default add_nested_item'
+    %h4= link_to text_icon(:th_large, label: 'Multiple<br/>Choice'.html_safe), '#multiple_choice', rel: 'flags', class: 'btn btn-default add_nested_item'
+    %h4= link_to text_icon(:toggle_on, label: 'True<br/>False'.html_safe), '#true_false', rel: 'flags', class: 'btn btn-default add_nested_item'
   .row
     .col-sm-6
       = f.submit 'Submit', class: 'btn btn-success'
       = link_to 'Cancel', @event, class: 'btn btn-danger'
+
+- content_for :javascript do
+  $('.panel-heading').find('i').toggleClass('fa-caret-square-o-right').toggleClass('fa-caret-square-o-down')
+  $('.panel-body').toggle(200)
+  - if @flag_category.new_record?
+    :plain
+      $('#flags').sortable({
+        axis: 'y',
+        cursor: 'crosshair',
+        items: 'div.panel',
+        opacity: 0.4,
+        scroll: true,
+        update: function() {}
+      });
+  - else
+    :plain
+      $('#flags').sortable({
+        axis: 'y',
+        cursor: 'crosshair',
+        items: 'div.panel',
+        opacity: 0.4,
+        scroll: true,
+        update: function(){
+          $.ajax({
+            type: 'post',
+            data: $('#flags').sortable('serialize') + '&id=#{@flag_category.uuid}',
+            dataType: 'script',
+            complete: function(request){
+              $('#flags').effect('highlight');
+            },
+            url: '/events/#{@event.uuid}/flag_categories/order_flags'
+          })
+        }
+      });

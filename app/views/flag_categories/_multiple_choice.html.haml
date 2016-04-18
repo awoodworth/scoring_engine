@@ -1,0 +1,48 @@
+%div.panel.panel-default{id: "flag_#{f.object.id || %(NEW_RECORD)}"}
+  .panel-heading{"data-rel" => "#panel-#{f.object.id || %(NEW_RECORD)}"}
+    %h3.panel-title 
+      = text_icon :caret_square_o_down
+      Multiple Choice
+  .panel-body{id: "panel-#{f.object.id || %(NEW_RECORD)}"}
+    = f.hidden_field :kind, value: 'multiple_choice'
+    .row
+      .col-sm-12
+        .form-group
+          = f.label :question
+          = f.text_field :question, placeholder: 'Question', class: 'form-control'
+    .row
+      .col-sm-12
+        .form-group
+          = f.label :comment
+          = f.text_area :comment, placeholder: 'Comment (displayed under question)', class: 'form-control'
+    .row
+      .col-sm-6
+        .form-group
+          = f.label :points
+          = f.text_field :points, placeholder: 'Points', class: 'form-control'
+      .col-sm-6
+        .form-group
+          = f.label :max_attempts, 'Max Attempts'
+          = f.text_field :max_attempts, placeholder: 'Max Attempts', class: 'form-control'
+    .row
+      .col-sm-12
+        .form-group
+          %label Possible Answers
+          - 4.times do |i|
+            .row
+              .col-sm-1
+                = label_tag "flag_category_flags_attributes_possible_answers_#{i}", ('A'..'D').to_a[i]
+              .col-sm-11
+                = text_field_tag "flag_category[flags_attributes][#{f.options[:child_index] || %(NEW_RECORD)}][possible_answers][]", (f.object.possible_answers ? f.object.possible_answers[i] : ''), id: "flag_category_flags_attributes_possible_answers_#{i}", class: 'form-control'
+    .row
+      .col-sm-12
+        .form-group
+          = f.label :answer
+          = f.select :answer, ('A'..'D').to_a, {}, {class: 'chosen-select'}
+          %span.description A, B, C, or D
+    .right
+      - if f.object.new_record?
+        = link_to 'Remove?', '#', rel: "flag_#{f.object.id || %(NEW_RECORD)}", class: 'btn btn-danger remove_nested_item'
+      - else
+        = f.label :_destroy, 'Destroy?'
+        = f.check_box :_destroy

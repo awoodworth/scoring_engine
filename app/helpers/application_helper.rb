@@ -2,7 +2,11 @@ module ApplicationHelper
 
   def text_icon(icon, options={})
     capture_haml do
-      haml_tag :span, class: "fa fa-#{icon.to_s.gsub('_','-')} #{options[:color]}"
+      haml_tag :i, class: "fa fa-#{icon.to_s.gsub('_','-')} #{options[:color]}"
+      if options[:label]
+        haml_tag :br
+        haml_tag :span, options[:label]
+      end
     end
   end
 

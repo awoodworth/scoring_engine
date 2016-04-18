@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160413025303) do
+ActiveRecord::Schema.define(version: 20160416213531) do
 
   create_table "events", force: :cascade do |t|
     t.string   "name",           limit: 255
@@ -29,6 +29,23 @@ ActiveRecord::Schema.define(version: 20160413025303) do
   end
 
   add_index "flag_categories", ["event_id"], name: "index_flag_categories_on_event_id", using: :btree
+
+  create_table "flags", force: :cascade do |t|
+    t.integer "flag_category_id", limit: 4
+    t.string  "question",         limit: 255
+    t.text    "comment",          limit: 65535
+    t.integer "points",           limit: 4
+    t.integer "max_attempts",     limit: 4
+    t.text    "answer",           limit: 65535
+    t.text    "possible_answers", limit: 65535
+    t.string  "kind",             limit: 255
+    t.integer "parent_id",        limit: 4
+    t.integer "position",         limit: 4
+  end
+
+  add_index "flags", ["flag_category_id"], name: "index_flags_on_flag_category_id", using: :btree
+  add_index "flags", ["parent_id"], name: "index_flags_on_parent_id", using: :btree
+  add_index "flags", ["position"], name: "index_flags_on_position", using: :btree
 
   create_table "groups", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -1096,6 +1113,7 @@ ActiveRecord::Schema.define(version: 20160413025303) do
   add_index "uuids", ["uuidable_id", "uuidable_type"], name: "index_uuids_on_uuidable_id_and_uuidable_type", using: :btree
 
   add_foreign_key "flag_categories", "events"
+  add_foreign_key "flags", "flag_categories"
   add_foreign_key "injects", "events"
   add_foreign_key "user_groups", "groups"
   add_foreign_key "user_groups", "users"

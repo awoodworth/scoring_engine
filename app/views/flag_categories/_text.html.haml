@@ -1,0 +1,38 @@
+%div.panel.panel-default{id: "flag_#{f.object.id || %(NEW_RECORD)}"}
+  .panel-heading{"data-rel" => "#panel-#{f.object.id || %(NEW_RECORD)}"}
+    %h3.panel-title 
+      = text_icon :caret_square_o_down
+      Text Box
+  .panel-body{id: "panel-#{f.object.id || %(NEW_RECORD)}"}
+    = f.hidden_field :kind, value: 'text'
+    .row
+      .col-sm-12
+        .form-group
+          = f.label :question
+          = f.text_field :question, placeholder: 'Question', class: 'form-control'
+    .row
+      .col-sm-12
+        .form-group
+          = f.label :comment
+          = f.text_area :comment, placeholder: 'Comment (displayed under question)', class: 'form-control'
+    .row
+      .col-sm-6
+        .form-group
+          = f.label :points
+          = f.text_field :points, placeholder: 'Points', class: 'form-control'
+      .col-sm-6
+        .form-group
+          = f.label :max_attempts, 'Max Attempts'
+          = f.text_field :max_attempts, placeholder: 'Max Attempts', class: 'form-control'
+    .row
+      .col-sm-12
+        .form-group
+          = f.label :answer
+          = f.text_field :answer, placeholder: 'Answer', class: 'form-control'
+          %span.description comma separated if needed
+    .right
+      - if f.object.new_record?
+        = link_to 'Remove?', '#', rel: "flag_#{f.object.id || %(NEW_RECORD)}", class: 'btn btn-danger remove_nested_item'
+      - else
+        = f.label :_destroy, 'Destroy?'
+        = f.check_box :_destroy

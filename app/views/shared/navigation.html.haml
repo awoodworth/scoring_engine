@@ -29,7 +29,7 @@
                 %li.dropdown-header Administration
                 %li{class: (controller_name =~ /users/ ? 'active' : '')}= link_to 'Users', users_path
                 %li{class: (controller_name =~ /groups/ ? 'active' : '')}= link_to 'Groups', groups_path
-                %li{class: (controller_name =~ /events/ ? 'active' : '')}= link_to 'Events', events_path
+                %li{class: (controller_name =~ /events|flag_categories/ ? 'active' : '')}= link_to 'Events', events_path
         - else
           %li= link_to "Login", "#", {"data-toggle"=>"modal", "data-target"=>"#login-modal"}
 - unless current_user
