@@ -1,0 +1,15 @@
+%h2 Capture the Flag
+%hr
+- if @flag_categories.any?
+  .row
+    - @flag_categories.each do |category|
+      .col-sm-3
+        .panel.panel-default
+          .panel-heading
+            .center= link_to category.name, ctf_flag_category_path(category.uuid)
+          .panel-body
+            = category.description
+          .panel-footer
+            -# TODO: progress bar
+- else
+  %i no event scheduled

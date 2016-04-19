@@ -1,0 +1,7 @@
+.btn-group{"data-toggle" => "buttons"}
+  - flag.possible_answers.each_with_index do |answer, index|
+    %label.btn.btn-default.multiple-choice{title: answer}
+      = radio_button_tag 'answer', ('A'..'D').to_a[index], false
+      = "#{('A'..'D').to_a[index]}. #{answer}"
+.right
+  = submit_tag 'Submit', class: 'btn btn-success'

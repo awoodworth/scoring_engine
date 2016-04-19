@@ -27,7 +27,7 @@ class DashboardsController < ApplicationController
 
     @services = Service.all.for_team(current_user.username)
   end
-  
+
   def white_team
     # TODO: stuff plz
   end

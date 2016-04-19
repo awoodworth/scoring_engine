@@ -19,6 +19,13 @@ Rails.application.routes.draw do
       end
     end
   end
+  resources :flags, only: [] do
+    member do
+      post :check
+    end
+  end
+  resources :ctf, only: :index
+  get "ctf/:flag_category_id" => "ctf#category", as: :ctf_flag_category
 
   resources :injects do
     resources :inject_responses

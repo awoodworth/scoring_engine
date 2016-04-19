@@ -125,3 +125,11 @@ tr.total {
   border-top: 2px solid #ddd;
   border-bottom: 2px solid #ddd;
 }
+
+label.btn.multiple-choice {
+  width: 250px;
+  text-align: left;
+  margin-bottom: 5px;
+  overflow: hidden;
+  border-radius: 4px !important;
+}

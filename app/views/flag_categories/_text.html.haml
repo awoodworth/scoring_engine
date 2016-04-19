@@ -1,8 +1,9 @@
 %div.panel.panel-default{id: "flag_#{f.object.id || %(NEW_RECORD)}"}
-  .panel-heading{"data-rel" => "#panel-#{f.object.id || %(NEW_RECORD)}"}
+  .panel-heading.panel-heading-click{"data-rel" => "#panel-#{f.object.id || %(NEW_RECORD)}"}
     %h3.panel-title 
       = text_icon :caret_square_o_down
       Text Box
+      = "(#{truncate(f.object.question, length: 30) || 'NEW'})"
   .panel-body{id: "panel-#{f.object.id || %(NEW_RECORD)}"}
     = f.hidden_field :kind, value: 'text'
     .row
@@ -16,11 +17,15 @@
           = f.label :comment
           = f.text_area :comment, placeholder: 'Comment (displayed under question)', class: 'form-control'
     .row
-      .col-sm-6
+      .col-sm-4
+        .form-group
+          = f.label :difficulty_level, 'Difficulty Level'
+          = f.select :difficulty_level, %w(easy medium hard expert hacker), {}, {class: 'chosen-select'}
+      .col-sm-4
         .form-group
           = f.label :points
           = f.text_field :points, placeholder: 'Points', class: 'form-control'
-      .col-sm-6
+      .col-sm-4
         .form-group
           = f.label :max_attempts, 'Max Attempts'
           = f.text_field :max_attempts, placeholder: 'Max Attempts', class: 'form-control'

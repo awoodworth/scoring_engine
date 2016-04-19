@@ -1,0 +1,25 @@
+%h2 Capture the Flag
+%hr
+- if @flags.any?
+  = link_to (text_icon(:chevron_circle_left)+"Categories"), ctf_index_path, class: 'btn btn-primary'
+  %table.table.table-striped
+    %thead
+      %th Question
+      %th Difficulty
+      %th Submissions
+      %th
+    %tbody
+      - @flags.each do |flag|
+        %tr
+          %td
+            = flag.question
+            - if flag.comment
+              %br
+              %i= flag.comment
+          %td= flag.difficulty_level
+          %td= flag.max_attempts
+          %td{style: 'width:250px !important'}
+            = form_tag check_flag_path(flag.uuid), remote: true do
+              = render partial: flag.kind, locals: { flag: flag }
+- else
+  %i no event scheduled

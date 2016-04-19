@@ -17,7 +17,7 @@ scoring_magic = ->
 
   $(document).on 'click', '.add_nested_item', addNestedItem
   $(document).on 'click', '.remove_nested_item', removeNewItem
-  $(document).on 'click', '.panel-heading', panelToggle
+  $(document).on 'click', '.panel-heading-click', panelToggle
 
 addNestedItem = (event) ->
   event.preventDefault()

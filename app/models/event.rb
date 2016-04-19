@@ -7,7 +7,11 @@ class Event < ActiveRecord::Base
   validates :name, :available_at, :unavailable_at, presence: true
   validate :sane_dates
   
-  scope :available, -> { where("available_at < ?", Time.now).where("unavailable_at > ?", Time.now) }
+  scope :available, ->(time=Time.now) { where("? BETWEEN available_at AND unavailable_at", time) }
+
+  def self.current
+    available.first
+  end
 
   def to_s
     name

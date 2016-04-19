@@ -33,8 +33,8 @@ class FlagCategoriesController < ApplicationController
 
   private
   def flag_category_params
-    params.require(:flag_category).permit(:name, :event_id,
-                                          flags_attributes: [:id, :flag_category_id, :kind, :question, :comments, :points, :max_attempts,
+    params.require(:flag_category).permit(:name, :event_id, :description,
+                                          flags_attributes: [:id, :flag_category_id, :kind, :question, :comments, :difficulty_level, :points, :max_attempts,
                                                               :answer, :position, :parent_id, :_destroy, possible_answers: []])
   end
 end
