@@ -6,20 +6,29 @@
     %thead
       %th Question
       %th Difficulty
-      %th Submissions
+      %th Attempts Left
       %th
     %tbody
       - @flags.each do |flag|
-        %tr
+        %tr{id: "flag_#{flag.uuid}"}
           %td
             = flag.question
             - if flag.comment
               %br
               %i= flag.comment
           %td= flag.difficulty_level
-          %td= flag.max_attempts
+          %td{id: "flag_#{flag.uuid}_attempts", title: current_user.flag_submissions.where(flag: flag).collect(&:submission_text).join('&#13;&#10;').html_safe, data: { toggle: "tooltip", placement: "left", "original-title"=>"", container: "body" } }
+            - if current_user.answered_correctly?(flag)
+              = text_icon :star, color: :green
+            - else
+              = current_user.attempts_left_for(flag)
           %td{style: 'width:250px !important'}
-            = form_tag check_flag_path(flag.uuid), remote: true do
-              = render partial: flag.kind, locals: { flag: flag }
+            - if current_user.answered_correctly?(flag)
+              .center= text_icon :check_circle, color: :green
+            - elsif current_user.attempts_left_for(flag) > 0
+              = form_tag check_flag_path(flag.uuid), remote: true, class: 'ctf_form', data: { rel: "#flag_#{flag.uuid}", target: "#flag_#{flag.uuid}_attempts", url: submissions_flag_path(flag.uuid) } do
+                = render partial: flag.kind, locals: { flag: flag }
+            - else
+              .center= text_icon :minus_circle, color: :red
 - else
   %i no event scheduled

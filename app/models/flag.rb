@@ -3,6 +3,7 @@ class Flag < ActiveRecord::Base
   acts_as_tree
   acts_as_list scope: :flag_category
   belongs_to :flag_category
+  has_many :flag_submissions
 
   KINDS = ['text', 'multiple_choice', 'true_false', 'matching', 'multi_part']
   DIFFICULTY_LEVELS = ['easy', 'medium', 'hard', 'expert', 'hacker']

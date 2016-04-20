@@ -8,7 +8,7 @@ class Ability
       can :read, Inject do |inject|
         inject.available?
       end
-      can :manage, InjectResponse, user_id: user.id
+      can :manage, [InjectResponse, FlagSubmission], user_id: user.id
       can :read, Guide
     end
 

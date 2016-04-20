@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160419035244) do
+ActiveRecord::Schema.define(version: 20160419174222) do
 
   create_table "events", force: :cascade do |t|
     t.string   "name",           limit: 255
@@ -30,6 +30,16 @@ ActiveRecord::Schema.define(version: 20160419035244) do
   end
 
   add_index "flag_categories", ["event_id"], name: "index_flag_categories_on_event_id", using: :btree
+
+  create_table "flag_submissions", force: :cascade do |t|
+    t.integer "user_id",         limit: 4
+    t.integer "flag_id",         limit: 4
+    t.text    "submission_text", limit: 65535
+    t.boolean "correct",                       default: false
+  end
+
+  add_index "flag_submissions", ["flag_id"], name: "index_flag_submissions_on_flag_id", using: :btree
+  add_index "flag_submissions", ["user_id"], name: "index_flag_submissions_on_user_id", using: :btree
 
   create_table "flags", force: :cascade do |t|
     t.integer "flag_category_id", limit: 4
@@ -1115,6 +1125,8 @@ ActiveRecord::Schema.define(version: 20160419035244) do
   add_index "uuids", ["uuidable_id", "uuidable_type"], name: "index_uuids_on_uuidable_id_and_uuidable_type", using: :btree
 
   add_foreign_key "flag_categories", "events"
+  add_foreign_key "flag_submissions", "flags"
+  add_foreign_key "flag_submissions", "users"
   add_foreign_key "flags", "flag_categories"
   add_foreign_key "injects", "events"
   add_foreign_key "user_groups", "groups"

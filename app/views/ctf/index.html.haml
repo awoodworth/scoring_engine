@@ -10,6 +10,8 @@
           .panel-body
             = category.description
           .panel-footer
-            -# TODO: progress bar
+            .progress
+              .progress-bar.progress-bar-success.progress-bar-striped.active{style: "width: #{category.flags.select{ |flag| current_user.answered_correctly?(flag) }.count.to_f / category.flags.count.to_f * 100}%"}
+              .progress-bar.progress-bar-danger.progress-bar-striped.active{style: "width: #{category.flags.select{ |flag| !current_user.answered_correctly?(flag) && current_user.completed_flag?(flag) }.count.to_f / category.flags.count.to_f * 100}%"}
 - else
   %i no event scheduled

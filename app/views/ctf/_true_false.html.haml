@@ -2,10 +2,10 @@
   .col-sm-7
     .btn-group{"data-toggle" => "buttons"}
       %label.btn.btn-default
-        = radio_button_tag 'answer', true, false
+        = radio_button_tag 'answer', true, false, required: true
         True
       %label.btn.btn-default
-        = radio_button_tag 'answer', false, false
+        = radio_button_tag 'answer', false, false, required: true
         False
   .col-sm-5.right
     = submit_tag 'Submit', class: 'btn btn-success full'

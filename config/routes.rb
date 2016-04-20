@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   resources :flags, only: [] do
     member do
       post :check
+      get :submissions
     end
   end
   resources :ctf, only: :index

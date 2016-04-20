@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :user_groups, dependent: :destroy
   has_many :groups, ->{ uniq }, through: :user_groups
   has_many :inject_responses, dependent: :destroy
+  has_many :flag_submissions, dependent: :destroy
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -20,6 +21,17 @@ class User < ActiveRecord::Base
 
   def in_group?(group_sym)
     groups.any?{ |group| group.name.underscore.to_sym == group_sym }
+  end
+
+  # flag methods
+  def attempts_left_for(flag)
+    flag.max_attempts - flag_submissions.where(flag: flag).count
+  end
+  def answered_correctly?(flag)
+    flag_submissions.where(flag: flag, correct: true).any?
+  end
+  def completed_flag?(flag)
+    answered_correctly?(flag) || flag.max_attempts == flag_submissions.where(flag: flag).count
   end
 
   # to override the devise email
