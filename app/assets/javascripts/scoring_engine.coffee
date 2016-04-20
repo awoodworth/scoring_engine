@@ -20,6 +20,20 @@ scoring_magic = ->
   $(document).on 'click', '.remove_nested_item', removeNewItem
   $(document).on 'click', '.panel-heading-click', panelToggle
 
+  $(document).on 'click', '.move_up', (event) ->
+    parent = $($(@).data('rel'))
+    my_index = parent.parent().children().index(parent)
+    if my_index > 0
+      higher = $(parent.parent().children()[my_index-1])
+      swap_places(higher, parent)
+
+  $(document).on 'click', '.move_down', (event) ->
+    parent = $($(@).data('rel'))
+    my_index = parent.parent().children().index(parent)
+    if my_index < (parent.parent().children().length-1)
+      lower = $(parent.parent().children()[my_index+1])
+      swap_places(parent, lower)
+
   # ctf remote form handler
   $('form.ctf_form')
     .bind 'ajax:beforeSend', ->
@@ -31,7 +45,7 @@ scoring_magic = ->
       if /^incorrect/i.test(data)
         num = data.split(',')[1]
         $(target).html(num)
-        $(target).effect("highlight", {color: "#d9534f"}, 1500);
+        $(target).effect 'highlight', {color: "#d9534f"}, 1500
         $(@)[0].reset()
         $(@).find('label.active').removeClass('active')
         if num == "0"
@@ -74,6 +88,13 @@ addNestedItem = (event) ->
   reloadChosen()
 
 replace_ids = (s) -> return s.replace(/NEW_RECORD/g, new Date().getTime())
+
+swap_places = (first, second) ->
+  dup = first.clone()
+  first.remove()
+  second.after(dup)
+  second.effect 'highlight', {}, 1500
+  dup.effect 'highlight', {}, 1500
 
 removeNewItem = (event) ->
   event.preventDefault()

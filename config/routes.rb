@@ -17,6 +17,10 @@ Rails.application.routes.draw do
       collection do
         post :order_flags
       end
+      member do
+        get :move_up
+        get :move_down
+      end
     end
   end
   resources :flags, only: [] do

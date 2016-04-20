@@ -6,7 +6,11 @@
       %th Name
       %th
   %tbody
-    - @event.flag_categories.each do |flag_category|
-      %tr
-        %td= flag_category.name
-        %td.right= object_actions [@event, flag_category]
+    = content_tag_for :tr, @flag_categories do |flag_category|
+      %td= flag_category.name
+      %td.right
+        = link_to 'Move Up', move_up_event_flag_category_path(@event, flag_category), data: { remote: true, rel: "#flag_category_#{flag_category.id}" }, class: 'move_up'
+        |
+        = link_to 'Move Down', move_down_event_flag_category_path(@event, flag_category), data: { remote: true, rel: "#flag_category_#{flag_category.id}" }, class: 'move_down'
+        |
+        = object_actions [@event, flag_category]

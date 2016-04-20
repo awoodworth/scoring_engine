@@ -31,6 +31,20 @@ class FlagCategoriesController < ApplicationController
     end
   end
 
+  def move_up
+    @flag_category.move_higher
+    respond_with(@flag_category) do |format|
+      format.js { render nothing: true, status: :ok }
+    end
+  end
+
+  def move_down
+    @flag_category.move_lower
+    respond_with(@flag_category) do |format|
+      format.js { render nothing: true, status: :ok }
+    end
+  end
+
   private
   def flag_category_params
     params.require(:flag_category).permit(:name, :event_id, :description,
