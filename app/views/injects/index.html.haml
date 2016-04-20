@@ -8,6 +8,7 @@
         %th Title
         %th Available At
         %th Due At
+        %th Difficulty
         - if current_user.admin?
           %th.center Max Score
         - else
@@ -19,6 +20,7 @@
           %td= inject.title
           %td= inject.available_at.strftime("%m/%d/%Y %H:%M")
           %td= inject.due_at.strftime("%m/%d/%Y %H:%M")
+          %td= inject.difficulty_level
           - if current_user.admin?
             %td.center= inject.max_score
           - else

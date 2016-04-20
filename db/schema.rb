@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160420044612) do
+ActiveRecord::Schema.define(version: 20160420060530) do
 
   create_table "events", force: :cascade do |t|
     t.string   "name",           limit: 255
@@ -93,14 +93,15 @@ ActiveRecord::Schema.define(version: 20160420044612) do
   add_index "inject_responses", ["user_id"], name: "index_inject_responses_on_user_id", using: :btree
 
   create_table "injects", force: :cascade do |t|
-    t.string   "title",        limit: 255
-    t.text     "description",  limit: 65535
+    t.string   "title",            limit: 255
+    t.text     "description",      limit: 65535
     t.datetime "available_at"
     t.datetime "due_at"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.integer  "max_score",    limit: 4,     default: 0
-    t.integer  "event_id",     limit: 4
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.integer  "max_score",        limit: 4,     default: 0
+    t.integer  "event_id",         limit: 4
+    t.string   "difficulty_level", limit: 255
   end
 
   add_index "injects", ["event_id"], name: "index_injects_on_event_id", using: :btree

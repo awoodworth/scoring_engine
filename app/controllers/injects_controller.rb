@@ -35,6 +35,6 @@ class InjectsController < ApplicationController
 
   private
   def inject_params
-    params.require(:inject).permit(:title, :description, :available_at, :due_at, :max_score, :event_id)
+    params.require(:inject).permit(:title, :description, :available_at, :due_at, :max_score, :event_id, :difficulty_level)
   end
 end

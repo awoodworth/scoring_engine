@@ -27,12 +27,17 @@
       .row
         .col-sm-6
           .form-group
-            = f.label :max_score, 'Max Score'
-            = f.text_field :max_score, placeholder: 'Max Score', class: 'form-control'
-        .col-sm-6
-          .form-group
             = f.label :event_id, 'Event'
             = f.collection_select :event_id, Event.all, :id, :name, {prompt: true}, {class: 'chosen-select'}
+        .col-sm-6
+          .form-group
+            = f.label :difficulty_level, 'Difficulty Level'
+            = f.select :difficulty_level, Setting.difficulty_levels.value.split(','), {}, {class: 'chosen-select'}
+      .row
+        .col-sm-6
+          .form-group
+            = f.label :max_score, 'Max Score'
+            = f.text_field :max_score, placeholder: 'Max Score', class: 'form-control'
   .row
     .col-sm-6
       = f.submit "Submit", class: "btn btn-success"

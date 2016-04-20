@@ -6,12 +6,12 @@ class Flag < ActiveRecord::Base
   has_many :flag_submissions
 
   KINDS = ['text', 'multiple_choice', 'true_false', 'matching', 'multi_part']
-  DIFFICULTY_LEVELS = ['easy', 'medium', 'hard', 'expert', 'hacker']
+  DIFFICULTY_LEVELS = Setting.difficulty_levels.value.split(',')
 
   validates :question, :points, :max_attempts, :kind, :difficulty_level, presence: true
   validates :points, :max_attempts, numericality: { only_integer: true, greater_than: 0 }
   validates :kind, inclusion: { in: KINDS }
-  validates :difficulty_level, inclusion: { in: DIFFICULTY_LEVELS }
+  validates :difficulty_level, inclusion: { in: Setting.difficulty_levels.value.split(',') }
   serialize :possible_answers, Array
 
   default_scope { order :position }

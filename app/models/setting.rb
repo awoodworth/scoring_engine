@@ -19,4 +19,7 @@ class Setting < ActiveRecord::Base
   def self.inject_default_due_at
     where(name: 'inject_default_due_at').first
   end
+  def self.difficulty_levels
+    where(name: 'difficulty_levels').first
+  end
 end

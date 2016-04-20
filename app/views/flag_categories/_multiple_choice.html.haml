@@ -20,7 +20,7 @@
       .col-sm-4
         .form-group
           = f.label :difficulty_level, 'Difficulty Level'
-          = f.select :difficulty_level, %w(easy medium hard expert hacker), {}, {class: 'chosen-select'}
+          = f.select :difficulty_level, Setting.difficulty_levels.value.split(','), {}, {class: 'chosen-select'}
       .col-sm-4
         .form-group
           = f.label :points
