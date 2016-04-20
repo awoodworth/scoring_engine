@@ -1,5 +1,5 @@
 class Inject < ActiveRecord::Base
-
+  uuid_it
   belongs_to :event
   has_many :inject_responses
 

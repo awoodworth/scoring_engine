@@ -1,6 +1,6 @@
 class InjectsController < ApplicationController
   before_filter :authenticate_user!
-  load_and_authorize_resource
+  load_and_authorize_resource find_by: :uuid
 
   def index
     @injects = current_user.in_group?(:white_team) ? Inject.all : Inject.available

@@ -1,7 +1,7 @@
 class InjectResponsesController < ApplicationController
   before_filter :authenticate_user!
-  load_and_authorize_resource :inject
-  load_and_authorize_resource :inject_response, shallow: true, through: :inject
+  load_and_authorize_resource :inject, find_by: :uuid
+  load_and_authorize_resource :inject_response, shallow: true, through: :inject, find_by: :uuid
 
   def new
     if @inject

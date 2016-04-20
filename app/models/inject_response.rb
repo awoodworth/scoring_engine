@@ -1,6 +1,7 @@
 class InjectResponse < ActiveRecord::Base
   attr_accessor :summary
 
+  uuid_it
   belongs_to :inject
   belongs_to :user
 
