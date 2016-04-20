@@ -38,7 +38,13 @@
             - else
               .red N/A
       %tr.total
-        %td{colspan: 4}
+        %td{colspan: 4} Total Submitted
+        %td.center
+          = user.inject_responses.pluck(:score).inject(:+) || 0
+          = " / "
+          = user.inject_responses.collect{ |res| res.inject.max_score }.inject(:+) || 0
+      %tr.total
+        %td{colspan: 4} Total Overall
         %td.center
           = user.inject_responses.pluck(:score).inject(:+) || 0
           = " / "
