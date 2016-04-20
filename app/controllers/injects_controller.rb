@@ -27,6 +27,11 @@ class InjectsController < ApplicationController
     end
   end
 
+  def available_now
+    @inject.update(available_at: Time.now, due_at: (Setting.inject_default_due_at.value && Setting.inject_default_due_at.value.to_i > 0) ? (Time.now + Setting.inject_default_due_at.value.to_i) : @inject.due_at)
+    redirect_to injects_path, notice: 'Inject was successfully updated.'
+  end
+
 
   private
   def inject_params

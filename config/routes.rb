@@ -34,6 +34,9 @@ Rails.application.routes.draw do
 
   resources :injects do
     resources :inject_responses
+    member do
+      get :available_now
+    end
   end
   resources :inject_responses do
     get :summary, on: :collection

@@ -27,4 +27,8 @@
               %td= link_to inject.inject_responses.where(user: current_user).first.submission_file_name, inject.inject_responses.where(user: current_user).first.submission.url
             - else
               %td= text_icon :close, color: :red
-          %td.right= object_actions inject
+          %td.right
+            - if can? :available_now, Inject
+              = link_to 'Available Now', available_now_inject_path(inject)
+              |
+            = object_actions inject
