@@ -23,7 +23,15 @@ class InjectResponsesController < ApplicationController
 
   def update
     @inject_response.update(inject_response_params)
-    respond_with @inject_response, location: -> { params[:inject_response][:summary] ? summary_inject_responses_path : inject_responses_path }
+    respond_with @inject_response, location: -> {
+      if params[:inject_response][:dashboard]
+        dashboards_path
+      elsif params[:inject_response][:summary]
+        summary_inject_responses_path
+      else
+        inject_responses_path
+      end
+    }
   end
 
   def destroy

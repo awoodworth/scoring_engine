@@ -53,6 +53,7 @@
             .modal-body
               = form_for response do |f|
                 .row
+                  = f.hidden_field :dashboard, value: true if controller_name =~ /dashboards/
                   .col-xs-6
                     .form-group
                       .input-group

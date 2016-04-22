@@ -4,6 +4,8 @@ class Event < ActiveRecord::Base
   has_many :injects
   has_many :inject_responses, through: :injects
   has_many :flag_categories
+  has_many :flags, through: :flag_categories
+  has_many :flag_submissions, through: :flags
 
   validates :name, :available_at, :unavailable_at, presence: true
   validate :sane_dates

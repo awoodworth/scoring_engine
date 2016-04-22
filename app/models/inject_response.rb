@@ -1,5 +1,5 @@
 class InjectResponse < ActiveRecord::Base
-  attr_accessor :summary
+  attr_accessor :summary, :dashboard
 
   uuid_it
   belongs_to :inject
@@ -14,7 +14,7 @@ class InjectResponse < ActiveRecord::Base
 
   validates_numericality_of :score, allow_nil: true
 
-  scope :for_current_event, ->(event=Event.current.id) { joins(:event).where('events.id = ?', event) }
+  scope :for_current_event, ->(event=Event.current_or_most_recent) { joins(:event).where('events.id = ?', event) }
   scope :in_event_order, ->() { joins(:event).order('events.unavailable_at DESC') }
 
   delegate :username, to: :user

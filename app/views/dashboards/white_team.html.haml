@@ -8,5 +8,32 @@
   .col-sm-6
     = render file: 'inject_responses/index'
   .col-sm-6
-    = pie_chart Event.current_or_most_recent.inject_responses.group_by{ |ir| ir.user }.map{ |user, ir| [user.username, ir.count] }
-    = column_chart Event.current_or_most_recent.inject_responses.group_by{ |ir| ir.inject }.map{ |inject, ir| [inject.title, ir.count] }
+    #chart-tabs
+      %ul.nav.nav-tabs{role: 'tablist'}
+        %li{role: 'presentation'}= link_to 'Injects', '#inject-charts', "aria-controls" => "inject-charts", role: 'tab', "data-toggle" => "inject-charts"
+        %li{role: 'presentation'}= link_to 'Flags', '#flag-charts', "aria-controls" => "flag-charts", role: 'tab', "data-toggle" => "flag-charts"
+        %li{role: 'presentation'}= link_to 'Services', '#service-charts', "aria-controls" => "service-charts", role: 'tab', "data-toggle" => "service-charts"
+      .tab-content
+        .tab-pane.active#inject-charts{role: 'tabpanel'}
+          = pie_chart Event.current_or_most_recent.inject_responses.group_by(&:user).map{ |user, inject_responses| [user.username, inject_responses.count] }, library: { title: { text: 'Number of Inject Responses per Team' } }
+          %hr
+          = column_chart Event.current_or_most_recent.inject_responses.group_by(&:inject).map{ |inject, inject_responses| [inject.title, inject_responses.count] }, library: { title: { text: 'Number of Inject Responses per Inject' } }
+          %hr
+          = pie_chart Event.current_or_most_recent.inject_responses.group_by(&:user).map{ |user, inject_responses| [user.username, inject_responses.collect(&:score).compact.inject(:+)] if inject_responses.collect(&:score).compact.length > 0 }.compact, library: { title: { text: 'Point Distribution for Inject Responses' } }
+        .tab-pane.active#flag-charts{role: 'tabpanel'}
+          = pie_chart Event.current_or_most_recent.flag_submissions.correct.group_by(&:user).map{ |user, submissions| [user.username, submissions.count] }, library: { title: { text: 'Number of Correct Flags per Team' } }
+          %hr
+          = column_chart Event.current_or_most_recent.flag_submissions.correct.group_by(&:flag_category).map{ |flag_category, submissions| [flag_category.name, submissions.count] }, library: { title: { text: 'Number of Correct Flags per Category' } }
+          %hr
+          = pie_chart Event.current_or_most_recent.flag_submissions.correct.group_by(&:user).map{ |user, submissions| [user.username, submissions.collect(&:flag).collect(&:points).compact.inject(:+)] if submissions.collect(&:flag).collect(&:points).compact.length > 0 }.compact, library: { title: { text: 'Point Distribution for Flags' } }
+        .tab-pane.active#service-charts{role: 'tabpanel'}
+          = pie_chart User.in_group(:blue_team).map{ |user| Service.all.for_team(user.username) }.map{ |services| [services.first.name1.split('-')[0]+services.first.name1.split('-')[1], services.collect{ |service| ServiceCheck.where(service_object_id: service.object_id).up.count }.compact.inject(:+)] }, library: { title: { text: 'Ups' } }
+          -# TODO: chart for ups and downs over time
+
+
+- content_for :javascript do
+  :plain
+    $('#chart-tabs a').click(function (e) {
+      e.preventDefault()
+      $(this).tab('show')
+    })
