@@ -35,8 +35,8 @@ class InjectResponsesController < ApplicationController
 
   def summary
     redirect_to dashboards_path and return false unless current_user.in_group?(:white_team)
-    @injects = Inject.all
-    @inject_responses = InjectResponse.all
+    @injects = Inject.for_current_event(Event.current_or_most_recent)
+    @inject_responses = InjectResponse.for_current_event(Event.current_or_most_recent)
     @users = User.in_group(:blue_team)
   end
 

@@ -7,7 +7,7 @@ class Event < ActiveRecord::Base
 
   validates :name, :available_at, :unavailable_at, presence: true
   validate :sane_dates
-  
+
   scope :available, ->(time=Time.now) { where("? BETWEEN available_at AND unavailable_at", time) }
 
   default_scope { order('unavailable_at DESC') }
@@ -16,12 +16,12 @@ class Event < ActiveRecord::Base
     available.first
   end
 
-  def current?
-    self == Event.current
-  end
-
   def self.current_or_most_recent
     order('unavailable_at DESC').first
+  end
+
+  def current?
+    self == Event.current
   end
 
   def to_s

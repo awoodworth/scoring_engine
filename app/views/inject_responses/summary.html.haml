@@ -11,7 +11,7 @@
         %th.center Score
     %tbody
       - @injects.each do |inject|
-        - @response = inject.inject_responses.where(user: user).first
+        - @response = user.inject_responses.where(inject: inject).first
         %tr
           %td= inject.title
           %td
@@ -40,15 +40,15 @@
       %tr.total
         %td{colspan: 4} Total Submitted
         %td.center
-          = user.inject_responses.pluck(:score).compact.inject(:+) || 0
+          = user.inject_responses.for_current_event(Event.current_or_most_recent).pluck(:score).compact.inject(:+) || 0
           = " / "
-          = user.inject_responses.collect{ |res| res.inject.max_score }.inject(:+) || 0
+          = user.inject_responses.for_current_event(Event.current_or_most_recent).collect{ |res| res.inject.max_score }.inject(:+) || 0
       %tr.total
         %td{colspan: 4} Total Overall
         %td.center
-          = user.inject_responses.pluck(:score).compact.inject(:+) || 0
+          = user.inject_responses.for_current_event(Event.current_or_most_recent).pluck(:score).compact.inject(:+) || 0
           = " / "
-          = @injects.pluck(:max_score).inject(:+) || 0
+          = @injects.for_current_event(Event.current_or_most_recent).pluck(:max_score).inject(:+) || 0
 
   - @inject_responses.each do |response|
     %div{ class: 'modal fade', id: "score-modal-#{response.id}", "tabindex"=>"-1", "role"=>"dialog", "aria-labelledby"=>"", "aria-hidden"=>"true" }

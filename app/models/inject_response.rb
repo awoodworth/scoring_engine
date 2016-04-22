@@ -14,7 +14,7 @@ class InjectResponse < ActiveRecord::Base
 
   validates_numericality_of :score, allow_nil: true
 
-  scope :for_current_event, ->() { joins(:event).where('events.id = ?', Event.current) }
+  scope :for_current_event, ->(event=Event.current.id) { joins(:event).where('events.id = ?', event) }
   scope :in_event_order, ->() { joins(:event).order('events.unavailable_at DESC') }
 
   delegate :username, to: :user
