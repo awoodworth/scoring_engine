@@ -22,13 +22,13 @@ class DashboardsController < ApplicationController
   def blue_team
     redirect_to root_path and return false unless current_user.in_group?(:blue_team)
     @injects = Inject.available
-    @complete_injects = current_user.inject_responses.collect(&:inject)
+    @complete_injects = current_user.inject_responses.for_current_event.collect(&:inject)
     @incomplete_injects = @injects - @complete_injects
 
     @services = Service.all.for_team(current_user.username)
   end
 
   def white_team
-    # TODO: stuff plz
+    @inject_responses = Event.current_or_most_recent.inject_responses
   end
 end

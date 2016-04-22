@@ -3,7 +3,7 @@ class InjectsController < ApplicationController
   load_and_authorize_resource find_by: :uuid
 
   def index
-    @injects = current_user.in_group?(:white_team) ? Inject.all : Inject.available
+    @injects = current_user.in_group?(:white_team) ? Inject.in_event_order : Inject.available
   end
 
   def show

@@ -2,6 +2,7 @@ class Event < ActiveRecord::Base
   uuid_it
 
   has_many :injects
+  has_many :inject_responses, through: :injects
   has_many :flag_categories
 
   validates :name, :available_at, :unavailable_at, presence: true
@@ -9,8 +10,18 @@ class Event < ActiveRecord::Base
   
   scope :available, ->(time=Time.now) { where("? BETWEEN available_at AND unavailable_at", time) }
 
+  default_scope { order('unavailable_at DESC') }
+
   def self.current
     available.first
+  end
+
+  def current?
+    self == Event.current
+  end
+
+  def self.current_or_most_recent
+    order('unavailable_at DESC').first
   end
 
   def to_s

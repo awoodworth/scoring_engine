@@ -1,7 +1,7 @@
 = header "List of Injects", Inject, icon: :list
 
-- @injects.group_by(&:event).each do |event|
-  %h3= event.first || 'No Event'
+- @injects.group_by(&:event).each do |event, injects|
+  %h3= (event || 'No Event') if current_user.in_group?(:white_team)
   %table.table.table-striped
     %thead
       %tr
@@ -15,7 +15,7 @@
           %th Submission
         %th
     %tbody
-      - event.last.each do |inject|
+      - injects.each do |inject|
         %tr
           %td= inject.title
           %td= inject.available_at.strftime("%m/%d/%Y %H:%M")

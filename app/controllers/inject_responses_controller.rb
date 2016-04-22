@@ -3,6 +3,10 @@ class InjectResponsesController < ApplicationController
   load_and_authorize_resource :inject, find_by: :uuid
   load_and_authorize_resource :inject_response, shallow: true, through: :inject, find_by: :uuid
 
+  def index
+    @inject_responses = current_user.in_group?(:white_team) ? InjectResponse.in_event_order : current_user.inject_responses.for_current_event
+  end
+
   def new
     if @inject
       redirect_to @inject and return false if current_user.inject_responses.where(inject_id: @inject.id).first

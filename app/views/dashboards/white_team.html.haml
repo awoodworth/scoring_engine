@@ -1,6 +1,12 @@
+= javascript_include_tag '//code.highcharts.com/highcharts.js', 'chartkick'
 %h2
   = text_icon :area_chart
   White Team Dashboard
 %hr
 
-%p more to come
+.row
+  .col-sm-6
+    = render file: 'inject_responses/index'
+  .col-sm-6
+    = pie_chart Event.current_or_most_recent.inject_responses.group_by{ |ir| ir.user }.map{ |user, ir| [user.username, ir.count] }
+    = column_chart Event.current_or_most_recent.inject_responses.group_by{ |ir| ir.inject }.map{ |inject, ir| [inject.title, ir.count] }

@@ -3,6 +3,7 @@ class InjectResponse < ActiveRecord::Base
 
   uuid_it
   belongs_to :inject
+  has_one :event, through: :inject
   belongs_to :user
 
   has_attached_file :submission#, path: ":rails_root/public/system/:class/:attachment/:id_partition/:style/:filename"
@@ -12,6 +13,9 @@ class InjectResponse < ActiveRecord::Base
   validates_with AttachmentSizeValidator, attributes: :submission, less_than: 20.megabytes
 
   validates_numericality_of :score, allow_nil: true
+
+  scope :for_current_event, ->() { joins(:event).where('events.id = ?', Event.current) }
+  scope :in_event_order, ->() { joins(:event).order('events.unavailable_at DESC') }
 
   delegate :username, to: :user
 

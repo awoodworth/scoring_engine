@@ -61,6 +61,7 @@ GEM
     builder (3.2.2)
     byebug (8.2.2)
     cancancan (1.13.1)
+    chartkick (1.4.2)
     chosen-rails (1.4.3)
       coffee-rails (>= 3.2)
       compass-rails (>= 2.0.4)
@@ -243,6 +244,7 @@ DEPENDENCIES
   binding_of_caller
   byebug
   cancancan (~> 1.10)
+  chartkick (~> 1.4.2)
   chosen-rails
   coffee-rails
   devise

@@ -1,41 +1,43 @@
 = header "List of Inject Responses", InjectResponse, icon: :folder_open, skip_button: true
 
-- if current_user.admin?
-  .panel-group#accordion{role: "tablist", "aria-multiselectable"=>"true"}
-    - @inject_responses.group_by{ |ir| ir.inject }.each do |inject, inject_response|
-      .panel.panel-default
-        .panel-heading{role: "tab", id: "inject_#{inject.id}_heading"}
-          %h4.panel-title
-            %a.collapsed{"data-toggle"=>"collapse", "data-parent"=>"#accordion", href: "#inject_#{inject.id}", "aria-expanded"=>"false", "aria-controls"=>"inject_#{inject.id}"}
-              = inject.title
-        %div.panel-collapse.collapse{id: "inject_#{inject.id}", role: "tabpanel", "aria-labelledby"=>"inject_#{inject.id}_heading"}
-          .panel-body
-            %table.table.table-striped
-              %thead
-                %th Team
-                %th Submitted
-                %th.center On Time
-                %th.center= "Score (#{inject.max_score})"
-                %th
-              %tbody
-                - inject_response.each do |response|
-                  %tr
-                    %td= link_to response.username, summary_inject_responses_path(anchor: response.username)
-                    %td= response.updated_at.strftime('%m/%d/%Y %l:%M %P')
-                    %td.center
-                      - if response.on_time?
-                        = text_icon :check, color: :green
-                      - else
-                        = text_icon :remove, color: :red
-                    %td.center
-                      - if response.score
-                        = link_to response.score, '#', {"data-toggle"=>"modal", "data-target"=>"#score-modal-#{response.id}"}
-                      - else
-                        = link_to 'Add Score', '#', {"data-toggle"=>"modal", "data-target"=>"#score-modal-#{response.id}"}
-                    %td.right
-                      = link_to "Download", response.submission.url
-                      |
-                      = object_actions response, skip_edit: true, skip_view: true
+- if current_user.in_group?(:white_team)
+  - @inject_responses.group_by(&:event).each do |event, inject_responses|
+    %h3= event
+    .panel-group#accordion{role: "tablist", "aria-multiselectable"=>"true"}
+      - inject_responses.group_by{ |ir| ir.inject }.each do |inject, inject_response|
+        .panel.panel-default
+          .panel-heading{role: "tab", id: "inject_#{inject.id}_heading"}
+            %h4.panel-title
+              %a.collapsed{"data-toggle"=>"collapse", "data-parent"=>"#accordion", href: "#inject_#{inject.id}", "aria-expanded"=>"false", "aria-controls"=>"inject_#{inject.id}"}
+                = inject.title
+          %div.panel-collapse.collapse{id: "inject_#{inject.id}", role: "tabpanel", "aria-labelledby"=>"inject_#{inject.id}_heading"}
+            .panel-body
+              %table.table.table-striped
+                %thead
+                  %th Team
+                  %th Submitted
+                  %th.center On Time
+                  %th.center= "Score (#{inject.max_score})"
+                  %th
+                %tbody
+                  - inject_response.each do |response|
+                    %tr
+                      %td= link_to response.username, summary_inject_responses_path(anchor: response.username)
+                      %td= response.updated_at.strftime('%m/%d/%Y %l:%M %P')
+                      %td.center
+                        - if response.on_time?
+                          = text_icon :check, color: :green
+                        - else
+                          = text_icon :remove, color: :red
+                      %td.center
+                        - if response.score
+                          = link_to response.score, '#', {"data-toggle"=>"modal", "data-target"=>"#score-modal-#{response.id}"}
+                        - else
+                          = link_to 'Add Score', '#', {"data-toggle"=>"modal", "data-target"=>"#score-modal-#{response.id}"}
+                      %td.right
+                        = link_to "Download", response.submission.url
+                        |
+                        = object_actions response, skip_edit: true, skip_view: true
   - @inject_responses.each do |response|
     %div{ class: 'modal fade', id: "score-modal-#{response.id}", "tabindex"=>"-1", "role"=>"dialog", "aria-labelledby"=>"", "aria-hidden"=>"true" }
       .vertical-alignment-helper

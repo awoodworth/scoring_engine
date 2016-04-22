@@ -16,6 +16,8 @@ gem 'autoprefixer-rails'
 gem 'turbolinks'
 gem 'haml'
 
+gem 'chartkick', '~> 1.4.2'
+
 gem 'devise'
 gem 'cancancan', '~> 1.10'
 gem 'responders'
