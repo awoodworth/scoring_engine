@@ -30,5 +30,17 @@ class DashboardsController < ApplicationController
 
   def white_team
     @inject_responses = Event.current_or_most_recent.inject_responses
+    @teams = []
+    User.in_group(:blue_team).each do |user|
+      @teams << {
+        user: user,
+        services: (Service.all.for_team(user.username).map{ |service| ServiceCheck.where(service_object_id: service.object_id).up.count }.compact.inject(:+).to_f || 0),
+        services_total: Service.all.for_team(user.username).map{ |service| ServiceCheck.where(service_object_id: service.object_id).count }.compact.inject(:+).to_f,
+        injects: (user.inject_responses.for_current_event.collect(&:score).compact.inject(:+).to_f || 0),
+        injects_total: Event.current_or_most_recent.injects.collect(&:max_score).inject(:+).to_f,
+        flags: (user.flag_submissions.correct.for_current_event.map{ |submission| submission.flag.points }.compact.inject(:+) || 0),
+        flags_total: Event.current_or_most_recent.flags.collect(&:points).inject(:+).to_f
+      }
+    end
   end
 end

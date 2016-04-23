@@ -7,6 +7,24 @@
 .row
   .col-sm-6
     = render file: 'inject_responses/index'
+    %hr
+    %h2 Team Rank
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Team
+          %th.center Injects
+          %th.center Flags
+          %th.center Services
+          %th.center Weighted Total %
+      %tbody
+        - @teams.each do |team|
+          %tr
+            %td= team[:user].username
+            %td.center{ title: "#{team[:injects]} / #{team[:injects_total]}", data: { toggle: "tooltip", placement: "top", "original-title"=>"", container: "body" } }= team[:injects]
+            %td.center{ title: "#{team[:flags]} / #{team[:flags_total]}", data: { toggle: "tooltip", placement: "top", "original-title"=>"", container: "body" } }= team[:flags]
+            %td.center{ title: "#{team[:services]} / #{team[:services_total]}", data: { toggle: "tooltip", placement: "top", "original-title"=>"", container: "body" } }= team[:services]
+            %td.center= number_to_percentage((team[:injects] / team[:injects_total] * Setting.inject_value.value.to_f + team[:flags]/team[:flags_total] * Setting.flag_value.value.to_f + team[:services]/team[:services_total] * Setting.service_value.value.to_f)*100)
   .col-sm-6
     #chart-tabs
       %ul.nav.nav-tabs{role: 'tablist'}
@@ -27,7 +45,7 @@
           %hr
           = pie_chart Event.current_or_most_recent.flag_submissions.correct.group_by(&:user).map{ |user, submissions| [user.username, submissions.collect(&:flag).collect(&:points).compact.inject(:+)] if submissions.collect(&:flag).collect(&:points).compact.length > 0 }.compact, library: { title: { text: 'Point Distribution for Flags' } }
         .tab-pane.active#service-charts{role: 'tabpanel'}
-          = pie_chart User.in_group(:blue_team).map{ |user| Service.all.for_team(user.username) }.map{ |services| [services.first.name1.split('-')[0]+services.first.name1.split('-')[1], services.collect{ |service| ServiceCheck.where(service_object_id: service.object_id).up.count }.compact.inject(:+)] }, library: { title: { text: 'Ups' } }
+          = pie_chart User.in_group(:blue_team).map{ |user| Service.all.for_team(user.username) }.map{ |services| [services.first.name1.split('-')[0]+services.first.name1.split('-')[1], services.collect{ |service| ServiceCheck.where(service_object_id: service.object_id).up.count }.compact.inject(:+)] }, library: { title: { text: 'Up Service Checks per Team' } }
           -# TODO: chart for ups and downs over time
 
 
