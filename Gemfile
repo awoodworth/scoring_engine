@@ -6,6 +6,7 @@ gem 'rails', '4.2.5.2'
 gem 'mysql2'
 gem 'uglifier'
 
+gem 'markdown-rails'
 gem 'sass-rails'
 gem 'coffee-rails'
 gem 'chosen-rails'

@@ -14,8 +14,8 @@
     %p
       %b Description:
       %br
-      :plain
-        #{@inject.description.gsub(/\n/, '<br/>').html_safe}
+      :markdown
+        #{@inject.description}
     %br
     = link_to 'List of Injects', injects_path, class: 'btn btn-info'
     - unless @inject_response
