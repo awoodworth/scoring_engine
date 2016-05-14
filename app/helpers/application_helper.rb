@@ -15,13 +15,13 @@ module ApplicationHelper
     options[:skip_button] ||= false
     capture_haml do
       haml_tag :div, class: 'row' do
-        haml_tag :div, class: 'col-xs-9' do
+        haml_tag :div, class: 'col-xs-6' do
           haml_tag options[:element] do
             haml_concat text_icon options[:icon] if options[:icon]
             haml_concat text
           end
         end
-        haml_tag :div, class: 'col-xs-3 right' do
+        haml_tag :div, class: 'col-xs-6 right' do
           unless options[:skip_button]
             if can?(:create, klass)
               haml_concat link_to("New #{klass.name.singularize}", new_polymorphic_url(klass.name.underscore.downcase.to_sym), class: 'btn btn-success')

@@ -1,4 +1,4 @@
-= show_header "Show Inject", @inject
+= show_header 'Inject Details', @inject
 .row
   .col-xs-6
     %p
@@ -17,7 +17,7 @@
       :markdown
         #{@inject.description}
     %br
-    = link_to 'List of Injects', injects_path, class: 'btn btn-info'
+    = link_to (text_icon(:chevron_circle_left)+'Event'), @inject.event, class: 'btn btn-primary' if can?(:manage, Event)
     - unless @inject_response
       = link_to 'Submit Inject Response', new_inject_inject_response_path(@inject), class: 'btn btn-success' if current_user.in_group?(:blue_team)
 

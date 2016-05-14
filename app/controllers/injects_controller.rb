@@ -1,6 +1,7 @@
 class InjectsController < ApplicationController
   before_filter :authenticate_user!
-  load_and_authorize_resource find_by: :uuid
+  load_and_authorize_resource :event, find_by: :uuid
+  load_and_authorize_resource find_by: :uuid, shallow: true, through: :event
 
   def index
     @injects = current_user.in_group?(:white_team) ? Inject.in_event_order : Inject.available

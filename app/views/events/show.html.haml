@@ -1,6 +1,6 @@
-= show_header "Show Event", @event
+= show_header 'Event Details', @event
 .row
-  .col-xs-6
+  .col-sm-6
     %p
       %b Name:
       = @event.name
@@ -8,4 +8,25 @@
       %b Schedule:
       = @event.schedule
 %hr
-= render file: 'flag_categories/index'
+.row
+  .col-md-6
+    = header 'Injects', Inject, icon: :list
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Title
+          %th Available At
+          %th Due At
+          %th
+      %tbody
+        - @event.injects.each do |inject|
+          %tr
+            %td= inject.title
+            %td= inject.available_at.strftime("%m/%d/%Y %H:%M")
+            %td= inject.due_at.strftime("%m/%d/%Y %H:%M")
+            %td.right
+              = link_to 'Available Now', available_now_inject_path(inject)
+              |
+              = object_actions [@event, inject]
+  .col-md-6
+    = render file: 'flag_categories/index'

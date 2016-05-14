@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :settings, skip: :show
 
   resources :events do
+    resources :injects
     resources :flag_categories do
       collection do
         post :order_flags

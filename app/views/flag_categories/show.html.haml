@@ -1,4 +1,4 @@
-= show_header 'Show Flag Category', @flag_category, parent_object: @event
+= show_header 'Flag Category Details', @flag_category, parent_object: @event
 .row
   .col-xs-6
     %p
@@ -7,3 +7,5 @@
     %p
       %b Name:
       = @flag_category.name
+
+= link_to (text_icon(:chevron_circle_left)+'Event'), @flag_category.event, class: 'btn btn-primary' if can?(:manage, Event)
