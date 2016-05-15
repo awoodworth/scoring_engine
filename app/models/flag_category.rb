@@ -3,6 +3,7 @@ class FlagCategory < ActiveRecord::Base
   acts_as_list scope: :event
   belongs_to :event
   has_many :flags
+  has_many :flag_submissions, through: :flags
 
   validates :name, :event, presence: true
 

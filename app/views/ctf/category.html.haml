@@ -6,6 +6,8 @@
     %thead
       %th Question
       %th Difficulty
+      - if Setting.flag_show_points.value == 'true'
+        %th Points
       %th Attempts Left
       %th
     %tbody
@@ -17,6 +19,8 @@
               %br
               %i= flag.comment
           %td= flag.difficulty_level
+          - if Setting.flag_show_points.value == 'true'
+            %td= flag.points
           %td{id: "flag_#{flag.uuid}_attempts", title: current_user.flag_submissions.where(flag: flag).collect(&:submission_text).join('&#13;&#10;').html_safe, data: { toggle: "tooltip", placement: "left", "original-title"=>"", container: "body" } }
             - if current_user.answered_correctly?(flag)
               = text_icon :star, color: :green
