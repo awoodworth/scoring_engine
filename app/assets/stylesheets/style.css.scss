@@ -137,3 +137,11 @@ label.btn.multiple-choice {
 .tooltip-inner {
   white-space:pre-wrap;
 }
+
+.no-underline {
+  text-decoration: none !important;
+  color: inherit;
+  &:hover {
+    color: inherit;
+  }
+}
