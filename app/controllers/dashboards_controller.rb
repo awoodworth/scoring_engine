@@ -1,5 +1,6 @@
 class DashboardsController < ApplicationController
   before_filter :authenticate_user!
+  respond_to :json
 
   def index
     if current_user && current_user.in_group?(:blue_team)
@@ -42,5 +43,28 @@ class DashboardsController < ApplicationController
         flags_total: Event.current_or_most_recent.flags.collect(&:points).inject(:+).to_f
       }
     end
+  end
+
+  # chart methods
+  def response_team
+    render json: Event.current_or_most_recent.inject_responses.group_by(&:user).map{ |user, inject_responses| [user.username, inject_responses.count] }
+  end
+  def response_inject
+    render json: Event.current_or_most_recent.inject_responses.group_by(&:inject).map{ |inject, inject_responses| [inject.title, inject_responses.count] }
+  end
+  def response_point
+    render json: Event.current_or_most_recent.inject_responses.group_by(&:user).map{ |user, inject_responses| [user.username, inject_responses.collect(&:score).compact.inject(:+)] if inject_responses.collect(&:score).compact.length > 0 }.compact
+  end
+  def flag_team
+    render json: Event.current_or_most_recent.flag_submissions.correct.group_by(&:user).map{ |user, submissions| [user.username, submissions.count] }
+  end
+  def flag_category
+    render json: Event.current_or_most_recent.flag_submissions.correct.group_by(&:flag_category).map{ |flag_category, submissions| [flag_category.name, submissions.count] }
+  end
+  def flag_point
+    render json: Event.current_or_most_recent.flag_submissions.correct.group_by(&:user).map{ |user, submissions| [user.username, submissions.collect(&:flag).collect(&:points).compact.inject(:+)] if submissions.collect(&:flag).collect(&:points).compact.length > 0 }.compact
+  end
+  def service_team
+    render json: User.in_group(:blue_team).map{ |user| Service.all.for_team(user.username) }.map{ |services| [services.first.name1.split('-')[0]+services.first.name1.split('-')[1], services.collect{ |service| ServiceCheck.where(service_object_id: service.object_id).up.count }.compact.inject(:+)] }
   end
 end
