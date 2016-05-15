@@ -11,7 +11,7 @@
       %ul.nav.navbar-nav
         %li{class: (controller_name =~ /dashboards|welcome/ ? 'active' : '')}= link_to "Home", root_url
         - if current_user
-          %li{class: (controller_name =~ /injects/ ? 'active' : '')}= link_to "Injects", injects_path
+          -#%li{class: (controller_name =~ /injects/ ? 'active' : '')}= link_to "Injects", injects_path
           %li{class: (controller_name =~ /inject_responses/ ? 'active' : '')}= link_to "Inject Responses", inject_responses_path
           %li{class: (controller_name =~ /ctf/ ? 'active' : '')}= link_to 'CTF', ctf_index_path
       %ul.nav.navbar-nav.navbar-right
