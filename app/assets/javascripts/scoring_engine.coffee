@@ -1,10 +1,9 @@
 # CoffeeScript file for Scoring Engine
+jQuery ->
 
-scoring_magic = ->
-  
   $.ajaxSetup
     beforeSend: (xhr) -> xhr.setRequestHeader('Accept', 'text/javascript')
-  
+
   # chosen select
   $('.chosen-select').chosen
     allow_single_deselect: true
@@ -111,6 +110,3 @@ panelToggle = (event) ->
 spin = -> return "<div class='fancy-spinner' style='position: absolute !important; left: 0px; width: 100%; height: 100%; margin-top: -10px'><h2 class='center'><i class='fa fa-circle-o-notch fa-spin'></i></h2></div>"
 
 window.replace_ids = replace_ids
-
-$(window).bind 'page:change', ->
-  scoring_magic();

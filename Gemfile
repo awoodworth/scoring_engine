@@ -15,6 +15,7 @@ gem 'jquery-ui-rails'
 gem 'autoprefixer-rails'
 
 gem 'turbolinks'
+gem 'jquery-turbolinks'
 gem 'haml'
 
 gem 'chartkick', '~> 1.4.2'
