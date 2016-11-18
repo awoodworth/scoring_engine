@@ -10,5 +10,5 @@
     - @groups.each do |group|
       %tr
         %td= group.name
-        %td= group.users.count
+        %td= @groups_count[group.id]
         %td.right= object_actions group

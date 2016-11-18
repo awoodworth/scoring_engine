@@ -3,7 +3,9 @@ class UsersController < ApplicationController
   load_and_authorize_resource
 
   def index
+    @users = User.all.eager_load(:user_groups, :groups)
     @groups = Group.all
+    @groups_count = UserGroup.user_in_group_count
   end
 
   def create

@@ -2,6 +2,10 @@ class GroupsController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource
 
+  def index
+    @groups_count = UserGroup.user_in_group_count
+  end
+
   def create
     @group.save
     respond_with @group

@@ -27,6 +27,7 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    active_record_query_trace (1.5.4)
     activejob (4.2.5.2)
       activesupport (= 4.2.5.2)
       globalid (>= 0.3.0)
@@ -107,6 +108,8 @@ GEM
       warden (~> 1.2.3)
     erubis (2.7.0)
     execjs (2.6.0)
+    faker (1.6.6)
+      i18n (~> 0.5)
     ffi (1.9.10)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
@@ -244,6 +247,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_record_query_trace
   acts_as_list
   acts_as_tree
   autoprefixer-rails
@@ -255,6 +259,7 @@ DEPENDENCIES
   chosen-rails
   coffee-rails
   devise
+  faker
   haml
   haml-rails
   jbuilder (~> 2.0)

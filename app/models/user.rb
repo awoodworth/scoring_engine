@@ -23,6 +23,11 @@ class User < ActiveRecord::Base
     groups.any?{ |group| group.name.underscore.to_sym == group_sym }
   end
 
+  def add_group(group_sym)
+    group = Group.where(name: group_sym.to_s).first
+    self.groups << group unless self.groups.include?(group)
+  end
+
   # flag methods
   def attempts_left_for(flag)
     flag.max_attempts - flag_submissions.where(flag: flag).count
@@ -41,7 +46,7 @@ class User < ActiveRecord::Base
   def email_changed?
     false
   end
-  
+
   private
   def has_at_least_one_group
     errors.add(:base, 'must be in at least one group') if self.user_groups.blank?

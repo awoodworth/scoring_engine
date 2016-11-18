@@ -45,4 +45,6 @@ group :development, :test do
   gem 'binding_of_caller'
   gem 'haml-rails'
   gem 'spring'
+  gem 'faker'
+  gem 'active_record_query_trace'
 end
