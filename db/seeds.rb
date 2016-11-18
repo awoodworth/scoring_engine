@@ -1,20 +1,20 @@
 # Default Admin User
-User.create(id: 1, username: "admin", password: "administrator", password_confirmation: "administrator")
+User.where(id: 1).first_or_create(username: "admin", password: "administrator", password_confirmation: "administrator")
 
 # Default Groups
-Group.create(id: 1, name: 'admin')
-Group.create(id: 2, name: 'blue_team')
-Group.create(id: 3, name: 'red_team')
-Group.create(id: 4, name: 'white_team')
+Group.where(id: 1).first_or_create(name: 'admin')
+Group.where(id: 2).first_or_create(name: 'blue_team')
+Group.where(id: 3).first_or_create(name: 'red_team')
+Group.where(id: 4).first_or_create(name: 'white_team')
 
 # Default User Group
-UserGroup.create(id: 1, user_id: 1, group_id: 1)
+UserGroup.where(id: 1).first_or_create(user_id: 1, group_id: 1)
 
 # Default Settings
-Setting.create(id: 1, name: 'service_value', value: '3')
-Setting.create(id: 2, name: 'inject_value', value: '4')
-Setting.create(id: 3, name: 'flag_value', value: '3')
-Setting.create(id: 4, name: 'inject_show_points', value: 'false')
-Setting.create(id: 5, name: 'flag_show_points', value: 'false')
-Setting.create(id: 6, name: 'inject_default_due_at', value: '1200')
-Setting.create(id: 7, name: 'difficulty_levels', value: 'easy,medium,hard,expert,hacker')
+Setting.where(id: 1).first_or_create(name: 'service_value', value: '3')
+Setting.where(id: 2).first_or_create(name: 'inject_value', value: '4')
+Setting.where(id: 3).first_or_create(name: 'flag_value', value: '3')
+Setting.where(id: 4).first_or_create(name: 'inject_show_points', value: 'false')
+Setting.where(id: 5).first_or_create(name: 'flag_show_points', value: 'false')
+Setting.where(id: 6).first_or_create(name: 'inject_default_due_at', value: '1200')
+Setting.where(id: 7).first_or_create(name: 'difficulty_levels', value: 'easy,medium,hard,expert,hacker')
