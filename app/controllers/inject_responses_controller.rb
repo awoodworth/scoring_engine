@@ -48,12 +48,17 @@ class InjectResponsesController < ApplicationController
     @users = User.in_group(:blue_team)
   end
 
+  def download
+    authorize! :manage, @inject_response
+    send_file @inject_response.submission.path, type: @inject_response.submission_content_type
+  end
+
 
   private
   def inject
     @inject = Inject.find(params[:inject_id]) if params[:inject_id]
   end
-  
+
   def inject_response_params
     if current_user.in_group?(:white_team)
       params.require(:inject_response).permit(:submission, :inject_id, :score, :summary)

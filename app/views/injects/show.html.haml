@@ -24,4 +24,4 @@
   .col-xs-6
     - if @inject_response
       = show_header "Inject Response", @inject_response, element: :h4, parent_object: @inject
-      = link_to @inject_response.submission_file_name, @inject_response.submission.url
+      = link_to @inject_response.submission_file_name, download_inject_inject_response_path(@inject, @inject_response)

@@ -1,5 +1,6 @@
 = show_header 'Inject Response Details', @inject_response, parent_object: @inject
 
-= link_to @inject_response.submission_file_name, @inject_response.submission.url
-
+= link_to @inject_response.submission_file_name, download_inject_inject_response_path(@inject, @inject_response)
+%br
+%br
 = link_to (text_icon(:chevron_circle_left)+'Inject'), @inject, class: 'btn btn-primary'

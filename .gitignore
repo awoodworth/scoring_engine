@@ -16,5 +16,9 @@
 /tmp
 .bundle
 
+# Ignore database config
 /config/database.yml
+
+# Ignore uploads
 /public/system
+/storage/system

@@ -26,7 +26,7 @@
           - else
             - response = inject.inject_responses.where(user: current_user).first
             - if response
-              %td= link_to inject.inject_responses.where(user: current_user).first.submission_file_name, inject.inject_responses.where(user: current_user).first.submission.url
+              %td= link_to response.submission_file_name, download_inject_response_path(response)
             - else
               %td= text_icon :close, color: :red
           %td.right

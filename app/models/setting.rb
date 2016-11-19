@@ -1,6 +1,7 @@
 class Setting < ActiveRecord::Base
   validates :name, :value, presence: true
-  
+  validates :name, uniqueness: true
+
   def self.service_value
     where(name: 'service_value').first
   end

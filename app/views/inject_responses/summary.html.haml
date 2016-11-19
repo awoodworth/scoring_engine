@@ -16,7 +16,7 @@
           %td= inject.title
           %td
             - if @response
-              = link_to @response.submission_file_name, @response.submission.url
+              = link_to @response.submission_file_name, download_inject_response_path(@response)
             - else
               .red N/A
           %td
@@ -59,7 +59,7 @@
               %button.close{type: "button", "data-dismiss"=>"modal", "aria-label"=>"Close"}
                 %span{"aria-hidden"=>"true"}
                   &times;
-              %h4.modal-title 
+              %h4.modal-title
                 Add Score
                 %small= "#{response.inject} (#{response.username})"
             .modal-body

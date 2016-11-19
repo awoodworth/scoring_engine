@@ -35,9 +35,11 @@
                         - else
                           = link_to 'Add Score', '#', {"data-toggle"=>"modal", "data-target"=>"#score-modal-#{response.id}"}
                       %td.right
-                        = link_to "Download", response.submission.url
+                        = link_to "Download", download_inject_response_path(response)
                         |
                         = object_actions response, skip_edit: false, skip_view: true
+
+  -# loop through the inject reponses and create modal forms
   - @inject_responses.each do |response|
     %div{ class: 'modal fade', id: "score-modal-#{response.id}", "tabindex"=>"-1", "role"=>"dialog", "aria-labelledby"=>"", "aria-hidden"=>"true" }
       .vertical-alignment-helper
@@ -62,7 +64,9 @@
                     .form-group
                       = f.submit "Submit", class: "btn btn-success"
   = link_to 'Summary', summary_inject_responses_path, class: 'btn btn-info'
+
 - else
+  -# blue team member
   %table.table.table-striped
     %thead
       %tr
@@ -81,6 +85,6 @@
             - else
               = text_icon :remove, color: :red
           %td.right
-            = link_to "Download", inject_response.submission.url
+            = link_to "Download", download_inject_response_path(inject_response)
             |
             = object_actions inject_response, skip_view: true

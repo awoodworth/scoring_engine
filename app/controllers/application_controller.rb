@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
     flash[:error] = exception.message
     redirect_to root_url
   end
-  
+
   rescue_from ActiveRecord::RecordNotFound do |exception|
     flash[:error] = 'Error 404: Record Not Found'
     redirect_to root_url
@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
     flash[:error] = exception.message
     redirect_to new_polymorphic_url(controller_name.singularize.to_sym)
   end
-  
+
   def after_sign_in_path_for(resource)
     sign_in_url = new_user_session_url
     if request.referer == sign_in_url

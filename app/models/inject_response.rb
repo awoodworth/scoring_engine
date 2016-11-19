@@ -6,9 +6,9 @@ class InjectResponse < ActiveRecord::Base
   has_one :event, through: :inject
   belongs_to :user
 
-  has_attached_file :submission#, path: ":rails_root/public/system/:class/:attachment/:id_partition/:style/:filename"
+  has_attached_file :submission, path: ":rails_root/storage/system/:class/:attachment/:id_partition/:style/:filename" # moving away from the public directory
   # validates_attachment_content_type :submission, content_type: [ 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/pdf' ]
-  validates_attachment_file_name :submission, matches: [ /doc?x\Z/, /pdf\Z/, /txt\Z/, /rtf\Z/ ]
+  validates_attachment_file_name :submission, matches: [ /doc?x\Z/, /pdf\Z/, /txt\Z/, /rtf\Z/ ], message: 'must be a .doc/x .pdf .txt, or .rtf'
   validates :submission, attachment_presence: true
   validates_with AttachmentSizeValidator, attributes: :submission, less_than: 20.megabytes
 

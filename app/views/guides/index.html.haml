@@ -8,5 +8,5 @@
   %tbody
     - @guides.each do |guide|
       %tr
-        %td= link_to guide.file_file_name, guide.file.url
+        %td= link_to guide.file_file_name, download_guide_path(guide)
         %td.right= object_actions guide

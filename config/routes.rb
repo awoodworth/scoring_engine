@@ -34,16 +34,27 @@ Rails.application.routes.draw do
   get "ctf/:flag_category_id" => "ctf#category", as: :ctf_flag_category
 
   resources :injects do
-    resources :inject_responses
+    resources :inject_responses do
+      member do
+        get :download
+      end
+    end
     member do
       get :available_now
     end
   end
   resources :inject_responses do
+    member do
+      get :download
+    end
     get :summary, on: :collection
   end
 
-  resources :guides
+  resources :guides do
+    member do
+      get :download
+    end
+  end
 
   root 'welcome#index'
 
