@@ -11,7 +11,7 @@ class Archive
     INJECT_DIR
   ]
 
-
+  # injects can be a single Inject instance, or a collection
   def self.archive_injects(injects)
     ensure_directories
 

@@ -31,6 +31,6 @@
                 = object_actions [@event, inject], skip_destroy: true
                 - if can? :archive, Inject
                   |
-                  = link_to 'Archive', archive_inject_path(inject), data: { turbolinks: false }
+                  = link_to 'Zip', zip_inject_path(inject), data: { turbolinks: false }
     .col-md-6
       = render file: 'flag_categories/index'

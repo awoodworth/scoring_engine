@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   resources :events do
     resources :injects do
       member do
-        get :archive
+        get :zip
       end
     end
     resources :flag_categories do
@@ -45,7 +45,7 @@ Rails.application.routes.draw do
     end
     member do
       get :available_now
-      get :archive
+      get :zip
     end
   end
   resources :inject_responses do
