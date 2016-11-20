@@ -29,6 +29,8 @@ gem "paperclip", "~> 4.2"
 gem 'acts_as_tree'
 gem 'acts_as_list'
 
+gem 'rubyzip'
+
 gem 'unicorn'
 
 gem 'jbuilder', '~> 2.0'
