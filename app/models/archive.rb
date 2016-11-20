@@ -39,6 +39,7 @@ class Archive
         end
       end
     end
+    return @archive_dir + @file_name
   end
 
   private

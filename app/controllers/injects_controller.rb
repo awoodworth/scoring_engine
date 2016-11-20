@@ -33,6 +33,11 @@ class InjectsController < ApplicationController
     redirect_to injects_path, notice: 'Inject was successfully updated.'
   end
 
+  def archive
+    @archive_file = Archive.archive_injects(@inject)
+    send_file @archive_file, type: 'application/zip'
+  end
+
 
   private
   def inject_params

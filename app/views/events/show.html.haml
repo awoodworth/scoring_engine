@@ -17,18 +17,20 @@
           %tr
             %th Title
             %th Available At
-            %th Due At
             %th
         %tbody
           - @event.injects.each do |inject|
             %tr
               %td= inject.title
-              %td= inject.available_at.strftime("%m/%d/%Y %H:%M")
-              %td= inject.due_at.strftime("%m/%d/%Y %H:%M")
+              %td
+                = inject.available_at.strftime("%m/%d/%Y %H:%M")
               %td.right
                 - if can? :available_now, Inject
                   = link_to 'Available Now', available_now_inject_path(inject)
                   |
-                = object_actions [@event, inject]
+                = object_actions [@event, inject], skip_destroy: true
+                - if can? :archive, Inject
+                  |
+                  = link_to 'Archive', archive_inject_path(inject), data: { turbolinks: false }
     .col-md-6
       = render file: 'flag_categories/index'

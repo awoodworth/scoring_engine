@@ -13,7 +13,11 @@ Rails.application.routes.draw do
   resources :settings, skip: :show
 
   resources :events do
-    resources :injects
+    resources :injects do
+      member do
+        get :archive
+      end
+    end
     resources :flag_categories do
       collection do
         post :order_flags
@@ -41,6 +45,7 @@ Rails.application.routes.draw do
     end
     member do
       get :available_now
+      get :archive
     end
   end
   resources :inject_responses do
