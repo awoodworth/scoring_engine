@@ -1,5 +1,5 @@
 # CoffeeScript file for Scoring Engine
-jQuery ->
+$(document).on "turbolinks:load", ->
 
   $.ajaxSetup
     beforeSend: (xhr) -> xhr.setRequestHeader('Accept', 'text/javascript')
@@ -15,18 +15,18 @@ jQuery ->
     format: 'YYYY-MM-DD hh:mm:ss a Z'
 
   # form handlers
-  $(document).on 'click', '.add_nested_item', addNestedItem
-  $(document).on 'click', '.remove_nested_item', removeNewItem
-  $(document).on 'click', '.panel-heading-click', panelToggle
+  $('.add_nested_item').on 'click', addNestedItem
+  $('.remove_nested_item').on 'click', removeNewItem
+  $('.panel-heading-click').on 'click', panelToggle
 
-  $(document).on 'click', '.move_up', (event) ->
+  $('.move_up').on 'click', (event) ->
     parent = $($(@).data('rel'))
     my_index = parent.parent().children().index(parent)
     if my_index > 0
       higher = $(parent.parent().children()[my_index-1])
       swap_places(higher, parent)
 
-  $(document).on 'click', '.move_down', (event) ->
+  $('.move_down').on 'click', (event) ->
     parent = $($(@).data('rel'))
     my_index = parent.parent().children().index(parent)
     if my_index < (parent.parent().children().length-1)
