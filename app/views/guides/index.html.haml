@@ -8,5 +8,5 @@
   %tbody
     - @guides.each do |guide|
       %tr
-        %td= link_to guide.file_file_name, download_guide_path(guide)
+        %td= link_to guide.file_file_name, download_guide_path(guide), data: { turbolinks: false }
         %td.right= object_actions guide

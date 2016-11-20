@@ -35,7 +35,7 @@
                         - else
                           = link_to 'Add Score', '#', {"data-toggle"=>"modal", "data-target"=>"#score-modal-#{response.id}"}
                       %td.right
-                        = link_to "Download", download_inject_response_path(response)
+                        = link_to "Download", download_inject_response_path(response), data: { turbolinks: false }
                         |
                         = object_actions response, skip_edit: false, skip_view: true
 
@@ -85,6 +85,6 @@
             - else
               = text_icon :remove, color: :red
           %td.right
-            = link_to "Download", download_inject_response_path(inject_response)
+            = link_to "Download", download_inject_response_path(inject_response), data: { turbolinks: false }
             |
             = object_actions inject_response, skip_view: true
