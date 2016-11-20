@@ -3,9 +3,11 @@ class Inject < ActiveRecord::Base
   belongs_to :event
   has_many :inject_responses
 
+  DIFFICULTY_LEVELS = Setting.difficulty_levels.value.split(',')
+
   validates :title, :description, :available_at, :due_at, :max_score, :event, :difficulty_level, presence: true
   validates :max_score, numericality: { only_integer: true }
-  validates :difficulty_level, inclusion: { in: Setting.difficulty_levels.value.split(',') }
+  validates :difficulty_level, inclusion: { in: DIFFICULTY_LEVELS }
 
   scope :available, ->(time=Time.now) { joins(:event).where("injects.available_at < ?", time).where("? BETWEEN events.available_at AND events.unavailable_at", time) }
   scope :for_current_event, ->(event=Event.current_or_most_recent) { where(event: event) }
