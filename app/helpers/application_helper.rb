@@ -87,7 +87,7 @@ module ApplicationHelper
     end
     if can?(:edit, acl_object) && !options[:skip_edit]
       edit_path = "edit_#{object.class.name.underscore}_path"
-      html << link_to(t('admin.edit'), edit_polymorphic_path(object), "data-no-turbolink" => true)
+      html << link_to(t('admin.edit'), edit_polymorphic_path(object))
     end
     if can?(:destroy, acl_object) && !options[:skip_destroy]
       options[:confirm] ||= 'Are you sure? This action cannot be undone!'
