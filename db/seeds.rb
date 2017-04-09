@@ -14,11 +14,13 @@ Group.where(name: 'red_team').first_or_create
 Group.where(name: 'white_team').first_or_create
 
 # Default Admin User
-@admin = User.where(username: "admin").first_or_create(password: "administrator", password_confirmation: "administrator")
+@admin = User.where(username: 'admin').first_or_initialize(password: 'administrator', password_confirmation: 'administrator')
 @admin.add_group(:admin)
+@admin.save
 
 # Default Teams
 1.upto 8 do |i|
-  @user = User.where(username: "team-#{i}").first_or_create(password: "password", password_confirmation: "password")
+  @user = User.where(username: "team-#{i}").first_or_initialize(password: 'password', password_confirmation: 'password')
   @user.add_group(:blue_team)
+  @user.save
 end
