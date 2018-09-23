@@ -17,12 +17,15 @@ class InjectResponsesController < ApplicationController
   end
 
   def create
+    redirect_to @inject and return false if current_user.inject_responses.where(inject_id: @inject.id).first
     @inject_response.save
     respond_with @inject_response, location: -> { @inject_response.inject }
   end
 
   def update
+    @inject_response.record_timestamps = false if current_user.in_group?(:white_team)
     @inject_response.update(inject_response_params)
+    @inject_response.record_timestamps = true if current_user.in_group?(:white_team)
     respond_with @inject_response, location: -> {
       if params[:inject_response][:dashboard]
         dashboards_path
