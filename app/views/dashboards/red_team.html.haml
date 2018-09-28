@@ -16,8 +16,8 @@
           = service.name2
         .progress
           .progress-bar.progress-bar-success{style: "width: #{@success}%"}
-            = "#{@success.round}% (#{ServiceCheck.where(service_object_id: service.object_id).up.count})"
+            = "#{@success ? @success.round : 0}% (#{ServiceCheck.where(service_object_id: service.object_id).up.count})"
           .progress-bar.progress-bar-danger{style: "width: #{@failure}%"}
-            = "#{@failure.round}% (#{ServiceCheck.where(service_object_id: service.object_id).down.count})"
+            = "#{@failure ? @failure.round : 0}% (#{ServiceCheck.where(service_object_id: service.object_id).down.count})"
 
 - @refresh = true
